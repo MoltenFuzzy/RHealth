@@ -1,7 +1,7 @@
  > As you complete each section you **must** remove the prompt text. Every *turnin* of this project includes points for formatting of this README so keep it clean and keep it up to date. 
  > Prompt text is any lines beginning with "\<"
  > Replace anything between \<...\> with your project specifics and remove angle brackets. For example, you need to name your project and replace the header right below this line with that title (no angle brackets). 
-# \<Project title\>
+## rhealth
  > Your author list below should include links to all members GitHub and should begin with a "\<" (remove existing author).
  
  > Authors: \<[Jeffrey McDaniel](https://github.com/jmcda001)\> \<[Andrea Zaragoza](https://github.com/AndreaZaragoza)\> \<[Sydney Garcia](https://github.com/supersydney22)\> 
@@ -17,6 +17,8 @@
  > * Each member of the group **must** be committing code regularly and make sure their code is correctly attributed to them. We will be checking attributions to determine if there was equal contribution to the project.
 
 ## Project Description
+This project is important because it’s purpose is to help people become healthy. By seeing where there are gaps in the health of the user, the program will tailor a meal plan and exercise routine for them. Instead of having a doctor simply say to a patient “eat healthier and exercise more”, now the patient can see exactly what foods to add to their diet and how much exercise to do in order to fill in the gaps in their health. Our application will focus on the health and wellness of the user, through inputs of certain levels such as cholesterol and blood pressure along with age, weight, and height. These numbers will be inputted in by the user and our application will output a meal plan and exercise routine tailored to the information that the user inputed. 
+
  > Your project description should summarize the project you are proposing. Be sure to include
  > * Why is it important or interesting to you?
  > * What languages/tools/technologies do you plan to use? (This list may change over the course of the project)
