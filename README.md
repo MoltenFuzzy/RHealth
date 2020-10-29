@@ -21,7 +21,7 @@ This project is important because it’s purpose is to help people become health
 * Composite
 	* Like mentioned in class a composite design pattern allows for simple and complex hierarchies. In class Professor Reem used the example of graphics being broken down to lines, rectangles, and text. We thought this design pattern would work well for our project, because of diversity our application will allow. Our application will not be restricted to any one group of people, but everyone. So this design pattern will allow us to put our users into specific hierarchies. 
 * Facade
-	 
+	* The Facade design pattern hides the complexities of the system and provides an interface in this case a graphical interface for the client. We decided on this design pattern because the client should not have to worry about the complexities of the application. This lets the client focus on the purpose of the application itself. Therefore to implement a facade pattern, we must provide a simple interface, which is then linked to the GUI components in our application. 
 * Visitor
 	* We have not gone over the visitor design pattern yet in class, but from our group’s research this pattern seems to be useful for our project. Since our project will be taking many different inputs from the user and having to do different calculations for each input the visitor design pattern will make adding new systems easy, because we will not have to affect other existing item classes that we have created. The visitor design pattern is used when you perform an operation on similar kinds of objects. Since our inputs can be diverse we will use this pattern for each group we create and conduct their calculations within them. 
 
