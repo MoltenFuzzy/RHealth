@@ -47,6 +47,7 @@
 ## Class Diagram
  > Include a class diagram(s) for each design pattern and a description of the diagram(s). This should be in sufficient detail that another group could pick up the project this point and successfully complete it. Use proper OMT notation (as discussed in the course slides). You may combine multiple design patterns into one diagram if you'd like, but it needs to be clear which portion of the diagram represents which design pattern (either in the diagram or in the description).
  
+ ![CS 100 Phase #2](https://user-images.githubusercontent.com/72319072/99218611-c858c700-278f-11eb-8273-cac232dfd76b.png)
  
 > The following diagram depicts all of the design patterns we plan to use in our final project, including Composite, Visitor, and Facade. The general part of the diagram with the WeightTracker class and its two children Exercise and MealPlan depict the composite pattern, which is where the main part of our computation will be. Our Facade and Visitor design pattern are both implemented through our Object Structure / Facade. This element is basically our main which will take in all of our user inputs, implementing our visitor pattern, and also being translated to our GUI application, acting as our facade pattern as well. The client is the user translating their answers into the main. The “client” is not any implementation on our part, it is just a representation of the user and where they will access our program.
  
