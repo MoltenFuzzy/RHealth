@@ -1,0 +1,11 @@
+*.exe
+.vscode
+build
+
+c-echo-count
+test
+
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
