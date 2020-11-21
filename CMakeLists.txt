@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 
 PROJECT(Rhealth)
 
-ADD_SUBDIRECTORY(libs/googletest)
+ADD_SUBDIRECTORY(lib/googletest)
 
 SET(CMAKE_CXX_STANDARD 11)
 
