@@ -1,4 +1,7 @@
+#ifndef HEALTH_PLAN
+#define HEALTH_PLAN
 
+#include <string>
 
 class HealthPlan
 {
@@ -10,3 +13,4 @@ public:
 };
 
 
+#endif // HEALTH_PLAN
