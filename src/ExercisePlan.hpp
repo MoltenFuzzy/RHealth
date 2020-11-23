@@ -37,6 +37,9 @@ public:
 	virtual void Add(ExercisePlan* e) {}
 	virtual void Remove(ExercisePlan* e) {}
 	virtual void Print();
+	virtual std::string GetWorkoutName() {return "";}
+
+	int size() { return WeeklyExercises.size(); }
 
 	json GetExerciseData() { return this->ExerciseData; }
 	std::unordered_map<std::string, std::vector<ExercisePlan*>>& GetWeeklyExercises() { return WeeklyExercises;}

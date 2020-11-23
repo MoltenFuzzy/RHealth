@@ -41,6 +41,8 @@ public:
 		}
 	} 
 
+	int size() { return daily_exercises.size(); }
+
 };
 
 #endif // DAILYEXERCISES
