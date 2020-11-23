@@ -9,12 +9,14 @@ SET(CMAKE_CXX_STANDARD 11)
 
 ADD_EXECUTABLE(main
     src/main.cpp
-    src/WeightTracker.cpp
+    src/WeightTracker.hpp
     src/HealthPlan.hpp
 )
 
 ADD_EXECUTABLE(test
     tests/unit_test.cpp
+    src/WeightTracker.hpp
+    src/HealthPlan.hpp
 )
 
 TARGET_LINK_LIBRARIES(test gtest)
