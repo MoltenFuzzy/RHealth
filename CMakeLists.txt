@@ -24,6 +24,7 @@ SET(CMAKE_CXX_STANDARD 11)
 ADD_EXECUTABLE(Rhealth
     src/main.cpp
     src/ExercisePlan.cpp
+    src/HealthApp.cpp
 )
 
 ADD_EXECUTABLE(test
