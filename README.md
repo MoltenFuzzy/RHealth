@@ -72,3 +72,35 @@
  ## Testing
  > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
  
+## How to build
+> We are using vcpkg to install libraries for C++
+
+> Installation differs for each OS
+
+> The dependencies include:
+
+* gtest
+* curl
+* curlpp
+* nlohmann_json
+
+## Refer to [vcpkg](https://github.com/Microsoft/vcpkg/) for more information
+
+## Requires
+* Windows 7 or newer
+* Git
+* Visual Studio 2015 Update 3 or greater with the English language pack
+
+### Install via vcpkg (WINDOWS64)
+
+```.\lib\vcpkg\bootstrap-vcpkg.bat```
+
+```.\lib\vcpkg\vcpkg integrate install```
+
+```.\lib\vcpkg\vcpkg install gtest --triplet=x64-windows```
+
+```.\lib\vcpkg\vcpkg install curl --triplet=x64-windows```
+
+```.\lib\vcpkg\vcpkg install curlpp --triplet=x64-windows```
+
+> nlohmann_json does not need to be installed as it is a submodule
