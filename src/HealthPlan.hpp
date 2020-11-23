@@ -17,9 +17,6 @@ class HealthPlan {
 	
 		/* Destructor */
 		~HealthPlan();
-		
-		/* Functions */
-		virtual void Accept(HealthPlanVisitor);
 };
 
 #endif
