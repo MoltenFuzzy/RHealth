@@ -7,8 +7,10 @@ ADD_SUBDIRECTORY(lib/googletest)
 
 SET(CMAKE_CXX_STANDARD 11)
 
-ADD_EXECUTABLE(Rhealth
+ADD_EXECUTABLE(main
     src/main.cpp
+    src/WeightTracker.cpp
+    src/HealthPlan.hpp
 )
 
 ADD_EXECUTABLE(test

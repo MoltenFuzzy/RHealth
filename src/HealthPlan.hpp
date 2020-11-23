@@ -7,7 +7,7 @@ class HealthPlan {
 private:
 	/* data */
 	int age;
-	string sex;
+	//string sex;
 	double weight;
 	double height;
 public:
@@ -18,7 +18,7 @@ public:
 	~HealthPlan();
 
 	/* Functions */
-	virtual void Accept(HealthPlanVisitor);
+	//virtual void Accept(HealthPlanVisitor);
 };
 
 #endif
