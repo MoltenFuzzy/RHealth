@@ -1,8 +1,5 @@
 #include "gtest/gtest.h"
-
-TEST(test1, ex1) {
-  EXPECT_EQ("hello", "hello");
-}
+#include "ExercisePlanTest.cpp"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
