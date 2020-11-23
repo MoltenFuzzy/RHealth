@@ -6,9 +6,11 @@
 class HealthPlan
 {
 private:
-	/* data */
 public:
 	HealthPlan() {}
+	virtual void Add() {}
+	virtual void Remove() {}
+	virtual void Print() {}
 };
 
 

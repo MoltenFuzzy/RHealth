@@ -20,29 +20,30 @@ using namespace curlpp::options;
 class ExercisePlan : public HealthPlan
 {
 private:
-	// Request payload body from exercise api and return a json object
-	// this function parses the response and store it in exercise data
-	void RequestExerciseAPI(); 
-
 	std::string API_url = "https://wger.de/api/v2/exercise/?language=2";
 	std::string API_token = "4bcc206865aff5431894a6bd1fd5efd69134013d";
+	void CreateWeeklyExercises(); 
 
 protected:
 	std::unordered_map<std::string, std::vector<ExercisePlan*>> WeeklyExercises;
 	json ExerciseData; 
 
 public:
-	ExercisePlan() { RequestExerciseAPI(); }
+	// BUG: RUNTIME IS SLOW BC FOR EVERY OBJECT ITS REQUESTING A PAYLOAD
+	ExercisePlan() {}
 	// TODO: make algorithm based off BMI to create and Exercise plan for each weight category ie normal, overweight, etc...
-	ExercisePlan(int age, std::string sex, double weight, double height); 
+	ExercisePlan(int age, std::string sex, double weight, double height) {} 
 
 	virtual void Add(ExercisePlan* e) {}
 	virtual void Remove(ExercisePlan* e) {}
-	virtual void Print() {}
+	virtual void Print();
 
-	json GetExerciseData() { return this->ExerciseData;}
+	json GetExerciseData() { return this->ExerciseData; }
+	std::unordered_map<std::string, std::vector<ExercisePlan*>>& GetWeeklyExercises() { return WeeklyExercises;}
 
-	void CreateWeeklyExercises(); 
+	// Request payload body from exercise api and return a json object
+	// this function parses the response and store it in exercise data
+	void RequestAPI(); 
 };
 
 

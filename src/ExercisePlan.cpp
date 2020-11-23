@@ -1,7 +1,7 @@
 #include "ExercisePlan.hpp"
 
 
-void ExercisePlan::RequestExerciseAPI() {
+void ExercisePlan::RequestAPI() {
 	/*
 	curl -H "Authorization: Token 4bcc206865aff5431894a6bd1fd5efd69134013d" 
 	-H "Accept: application/json; indent=4" 
@@ -54,5 +54,15 @@ void ExercisePlan::RequestExerciseAPI() {
 }
 
 void ExercisePlan::CreateWeeklyExercises() {
+	
+}
 
+void ExercisePlan::Print() {
+	for(auto e : WeeklyExercises) {
+		std::cout << e.first << ":" << std::endl;
+		for(auto x : e.second) {
+			x->Print();
+		}
+		std::cout << std::endl;
+	}
 }

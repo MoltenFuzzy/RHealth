@@ -6,13 +6,14 @@
 class Workout : public ExercisePlan
 {
 	private:
-		std::string workout_name;
+		std::string name;
+		std::string description;
 	public:
-		Workout(std::string name) : workout_name{name} {}
-		std::string GetWorkoutName() { return workout_name; }
+		Workout(std::string n) : name{n} {}
+		std::string GetWorkoutName() { return name; }
 
 		void Print() {
-			std::cout << workout_name; 
+			std::cout << this->name << std::endl;
 		}
 };
 
