@@ -1,10 +1,6 @@
 #include "ExercisePlan.hpp"
 
 
-// std::vector<ExercisePlan*> ExercisePlan::CreateDailyExercises() {
-
-// } 
-
 void ExercisePlan::RequestExerciseAPI() {
 	/*
 	curl -H "Authorization: Token 4bcc206865aff5431894a6bd1fd5efd69134013d" 
@@ -26,12 +22,22 @@ void ExercisePlan::RequestExerciseAPI() {
 		myRequest.setOpt(curlpp::options::HttpHeader(header)); 
 
 		// Set the URL.
-
 		myRequest.setOpt(curlpp::Options::Url(API_url));
 
 		// Send request and get a result.
 		// By default the result goes to standard output.
-		myRequest.perform();
+		//myRequest.perform();
+
+
+		std::ostringstream os;
+
+		os << myRequest;
+
+		// parsing json
+		this->ExerciseData = json::parse(os.str()); 
+
+		this->ExerciseData = this->ExerciseData["results"];
+
 
 	}
 
@@ -44,5 +50,9 @@ void ExercisePlan::RequestExerciseAPI() {
 	{
 		std::cout << e.what() << std::endl;
 	}
+
+}
+
+void ExercisePlan::CreateWeeklyExercises() {
 
 }

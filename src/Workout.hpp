@@ -5,11 +5,15 @@
 
 class Workout : public ExercisePlan
 {
-private:
-	
-public:
-	Workout();
-	~Workout();
+	private:
+		std::string workout_name;
+	public:
+		Workout(std::string name) : workout_name{name} {}
+		std::string GetWorkoutName() { return workout_name; }
+
+		void Print() {
+			std::cout << workout_name; 
+		}
 };
 
 

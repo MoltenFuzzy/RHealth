@@ -20,21 +20,29 @@ using namespace curlpp::options;
 class ExercisePlan : public HealthPlan
 {
 private:
+	// Request payload body from exercise api and return a json object
+	// this function parses the response and store it in exercise data
+	void RequestExerciseAPI(); 
+
 	std::string API_url = "https://wger.de/api/v2/exercise/?language=2";
 	std::string API_token = "4bcc206865aff5431894a6bd1fd5efd69134013d";
 
+protected:
 	std::unordered_map<std::string, std::vector<ExercisePlan*>> WeeklyExercises;
 	json ExerciseData; 
 
 public:
-	ExercisePlan() {}
+	ExercisePlan() { RequestExerciseAPI(); }
+	// TODO: make algorithm based off BMI to create and Exercise plan for each weight category ie normal, overweight, etc...
 	ExercisePlan(int age, std::string sex, double weight, double height); 
 
-	// Create an daily exercise plan from the exercise data
-	std::vector<ExercisePlan*> CreateDailyExercises(); 
-	// Request payload body from exercise api and return a json object
-	// this function should parse the response before return json
-	void RequestExerciseAPI(); 
+	virtual void Add(ExercisePlan* e) {}
+	virtual void Remove(ExercisePlan* e) {}
+	virtual void Print() {}
+
+	json GetExerciseData() { return this->ExerciseData;}
+
+	void CreateWeeklyExercises(); 
 };
 
 
