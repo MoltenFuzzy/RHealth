@@ -1,12 +1,22 @@
+#ifndef PROJECT_WEIGHT_TRACKER
+#define PROJECT_WEIGHT_TRACKER
+
 #include "HealthPlan.hpp"
 
-class WeightTracker : public HealthPlan
-{
+
+class WeightTracker : public HealthPlan {
+
 private:
 	/* data */
+	double bmi;
 public:
-	WeightTracker(/* args */);
-	~WeightTracker();
+	/* Constructor */
+	WeightTracker() : HealthPlan() { };
+
+	double BmiCalculator(HealthPlan* height, HealthPlan* weight);
+	void BmiLevel(double bmi);
+	
+	
 };
 
 

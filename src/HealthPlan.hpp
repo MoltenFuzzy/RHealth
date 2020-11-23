@@ -1,12 +1,26 @@
+#ifndef _HEALTHPLAN_HPP_
+#define _HEALTHPLAN_HPP_
 
+#include <string>
 
-class HealthPlan
-{
+class HealthPlan {
 private:
 	/* data */
+	int age;
+	string sex;
+	double weight;
+	double height;
 public:
-	HealthPlan(/* args */);
+	/* Constructor(s) */
+	HealthPlan() { };
+
+	/* Destructor */
 	~HealthPlan();
+
+	/* Functions */
+	virtual void Accept(HealthPlanVisitor);
 };
+
+#endif
 
 
