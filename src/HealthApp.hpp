@@ -2,13 +2,14 @@
 #define HEALTH_APP
 
 #include "ExercisePlan.hpp"
-#include "DailyExercise.hpp"
+#include "Routine.hpp"
 #include "MealPlan.hpp"
 #include "WeightTracker.hpp"
 
 class HealthApp
 {
 private:
+	std::vector<std::string> DaysOfWeek = {"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"};
 	
 public:
 	HealthApp() {}

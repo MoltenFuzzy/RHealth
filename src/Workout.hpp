@@ -10,10 +10,10 @@ class Workout : public ExercisePlan
 		std::string description;
 	public:
 		Workout(std::string n) : name{n} {}
-		std::string GetWorkoutName() { return name; }
+		std::string GetName() { return name; }
 
 		void Print() {
-			std::cout << this->name << std::endl;
+			std::cout << this->name; 
 		}
 };
 
