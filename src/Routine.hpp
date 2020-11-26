@@ -11,6 +11,9 @@ private:
 	PairVector routines; 
 
 public: 
+	Routine() {}
+	Routine(PairVector r) : routines{r} {}
+
 	void AddWorkoutsFromJSON(json workouts) {
 		// TODO: CREATE STRATEGY CLASS FOR API
 		// SO ONLY CALL ONCE
@@ -34,20 +37,23 @@ public:
 	} 
 
 	void Remove(std::string key, ExercisePlan* value) {
-		//routines.erase(routines.begin() + index);
+		PairVector::iterator it = std::find(routines.begin(), routines.end(), std::make_pair(key, value));
+		bool found_it = it != routines.end();
+		if(found_it) {
+			routines.erase(it);
+		}
+
 	} 
 
 	void Print() {
-		int counter = 0; 
 		for(auto routine : routines) {
 			// Only print if the key is a day of the week
-			if (std::find(DaysOfWeek.begin(), DaysOfWeek.end(), routine.first) != DaysOfWeek.end()) {
+			if(std::find(DaysOfWeek.begin(), DaysOfWeek.end(), routine.first) != DaysOfWeek.end()) {
 				std::cout << routine.first << std::endl; 
 			}
 
 			routine.second->Print();
 			std::cout << std::endl;
-			counter++;
 		}
 	} 
 
