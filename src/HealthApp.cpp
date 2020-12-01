@@ -7,7 +7,9 @@ HealthPlan* HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 	ExercisePlan* WeeklyExercisePlan = new Routine();
 
 	// TODO: Create API interface class to handle API calls for different subclasses
-	WeeklyExercisePlan->SendAPIRequest();
+	//WeeklyExercisePlan->SendAPIRequest();
+	WeeklyExercisePlan->setAPIFunction(new APICaller());
+	WeeklyExercisePlan->CallAPI(); 
 
 	// Assigning exercises to each day
 	for(auto day : DaysOfWeek) {

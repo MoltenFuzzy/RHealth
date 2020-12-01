@@ -5,6 +5,7 @@
 #include "Routine.hpp"
 #include "MealPlan.hpp"
 #include "WeightTracker.hpp"
+#include "APICaller.hpp"
 
 class HealthApp
 {
