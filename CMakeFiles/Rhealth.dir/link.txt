@@ -1,0 +1,1 @@
+/opt/rh/devtoolset-6/root/usr/bin/c++     CMakeFiles/Rhealth.dir/src/main.cpp.o  -o Rhealth 
