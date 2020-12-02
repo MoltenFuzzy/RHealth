@@ -1,9 +1,12 @@
 #include <iostream>
+#include "HealthApp.hpp"
+#include "ExercisePlan.hpp"
+#include "Routine.hpp"
+#include "Workout.hpp"
 
 using namespace std;
 
-int main()
-{
+int main() {
 	int age = 0;
 	string sex;
 	double height = 0.0;
@@ -40,7 +43,11 @@ int main()
 	}
 
 	cout << "Welcome to your RHealth Plan!" << endl;
-	//call functions		
+	//call functions			
+	HealthApp rhealth;  
+	HealthPlan* ExercisePlan = rhealth.CreateExercisePlan(20, "Male", 160, 180);
+
+	ExercisePlan->Print(); 
 
 	return 0;
 }
