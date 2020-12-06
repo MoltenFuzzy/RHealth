@@ -18,6 +18,10 @@ HealthPlan* HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 
 	int index {0};
 	for (const auto& day : DaysOfWeek) {
+			std::string rest_day = "sunday"; 
+			// skipping rest day
+			if(day == rest_day) continue; 
+
 			Routine* DailyRoutine = new Routine();
 
 			auto firstCategory { Categories.begin() + index };
