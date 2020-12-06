@@ -39,15 +39,8 @@ class APICaller : public APIHandler {
 				// By default the result goes to standard output.
 				// myRequest.perform();
 
-
 				std::ostringstream os;
-
 				os << myRequest;
-
-				// parsing json
-				// this->ExerciseData = json::parse(os.str()); 
-
-				// this->ExerciseData = this->ExerciseData["results"];
 
 				// return a json that each individual subclass will parse further
 				return json::parse(os.str());
@@ -64,7 +57,6 @@ class APICaller : public APIHandler {
 			}
 
 			return json(); 
-
 		}
 };
 

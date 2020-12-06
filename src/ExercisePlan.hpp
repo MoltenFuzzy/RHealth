@@ -19,7 +19,8 @@
 using json = nlohmann::json;
 using namespace curlpp::options;
 
-class ExercisePlan : public HealthPlan
+// virtual inheritence ensures only one copy of a base class's member variables are inherited by grandchild derived classes
+class ExercisePlan : virtual public HealthPlan
 {
 private:
 
@@ -39,8 +40,6 @@ protected:
 public:
 	ExercisePlan() {
 		API_token = "4bcc206865aff5431894a6bd1fd5efd69134013d";
-
-		InitCategories(); 
 	}
 
 	// TODO: make algorithm based off BMI to create and Exercise plan for each weight category ie normal, overweight, etc...
@@ -58,13 +57,13 @@ public:
 	// ONLY CALL THIS ONCE
 	// Calls API and parses json payload to json object
 	// Returns json payload
-	json CallAPI() { 
+	const json& CallAPI() { 
 		if(APIFunction == nullptr){
         	throw std::runtime_error("Invalid API");
         }
-		this->payload = APIFunction->CallAPI(this); 
 		// for this specific api , we just need the results
-		this->payload = this->payload["results"];
+		this->payload = APIFunction->CallAPI(this)["results"]; 
+		// this->payload = this->payload["results"];
 
 		return this->payload; 
 	}
@@ -87,7 +86,7 @@ public:
 
 	std::string getCategoryID(std::string key) { return Categories[key]; }
 
-	json getCategories() { return this->Categories; }
+	const json& getCategories() { return this->Categories; }
 };
 
 
