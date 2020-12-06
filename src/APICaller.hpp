@@ -37,7 +37,7 @@ class APICaller : public APIHandler {
 
 				// Send request and get a result.
 				// By default the result goes to standard output.
-				//myRequest.perform();
+				// myRequest.perform();
 
 
 				std::ostringstream os;
@@ -49,8 +49,8 @@ class APICaller : public APIHandler {
 
 				// this->ExerciseData = this->ExerciseData["results"];
 
-				// Should expect a results property
-				return json::parse(os.str())["results"];
+				// return a json that each individual subclass will parse further
+				return json::parse(os.str());
 			}
 
 			catch(curlpp::RuntimeError & e)

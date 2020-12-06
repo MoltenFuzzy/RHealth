@@ -3,6 +3,7 @@
 
 
 #include "HealthPlan.hpp"
+#include "APICaller.hpp"
 
 #include <vector>
 #include <string>
@@ -25,15 +26,21 @@ private:
 protected:
 	// TODO: change limit to 6 workouts + 2 cardio? per day of week (6+2 * 7) = 56, assign 6 different workouts (3 of one muscle group each) for a day then 2 cardio
 	// TODO: add category to link to search for more specific exercises
-	std::string result_limit = "10"; 
+	std::string category_url = "https://wger.de/api/v2/exercisecategory/";
+
+	std::string result_limit = "3"; 
+	std::string exercise_url = "https://wger.de/api/v2/exercise/?language=2&limit=" + result_limit + "&category="; 
 
 	// data payload
+	json payload; 
 	json ExerciseData; 
+	json Categories; 
 
 public:
 	ExercisePlan() {
-		API_url = "https://wger.de/api/v2/exercise/?language=2&limit=" + result_limit;
 		API_token = "4bcc206865aff5431894a6bd1fd5efd69134013d";
+
+		InitCategories(); 
 	}
 
 	// TODO: make algorithm based off BMI to create and Exercise plan for each weight category ie normal, overweight, etc...
@@ -45,19 +52,42 @@ public:
 	virtual void Print() = 0; 
 	virtual std::string GetWorkoutName() { return ""; }
 
+	void SetExerciseData(json e) { this->ExerciseData = e; }
 	json GetExerciseData() { return this->ExerciseData; }
 
 	// ONLY CALL THIS ONCE
 	// Calls API and parses json payload to json object
-	void CallAPI() { 
+	// Returns json payload
+	json CallAPI() { 
 		if(APIFunction == nullptr){
         	throw std::runtime_error("Invalid API");
         }
-		this->ExerciseData = APIFunction->CallAPI(this); 
+		this->payload = APIFunction->CallAPI(this); 
+		// for this specific api , we just need the results
+		this->payload = this->payload["results"];
+
+		return this->payload; 
 	}
 
+	// Function will init the exercise categories using an API call
+	void InitCategories() {
+		setAPIFunction(new APICaller());
+		// Set the url 
+		this->API_url = this->category_url;
+		this->Categories = CallAPI();
+	}
+
+	void setAPIurl(std::string url) { this->API_url = url; }
 	std::string getAPIurl() { return API_url; }
+
+	void setAPItoken(std::string token) { this->API_token = token; }
 	std::string getAPItoken() { return API_token; }
+
+	std::string getExerciseUrl() { return this->exercise_url; }
+
+	std::string getCategoryID(std::string key) { return Categories[key]; }
+
+	json getCategories() { return this->Categories; }
 };
 
 
