@@ -9,8 +9,9 @@ class Workout : public ExercisePlan
 		std::string name;
 		std::string description;
 	public:
-		Workout(std::string n) : name{n} {}
+		Workout(std::string n, std::string desc) : name{n}, description{desc} {}
 		std::string GetName() { return name; }
+		std::string GetDesc() { return description; }
 
 		void Print() {
 			std::cout << this->name; 

@@ -3,6 +3,7 @@
 
 
 #include "HealthPlan.hpp"
+#include "APICaller.hpp"
 
 #include <vector>
 #include <string>
@@ -18,25 +19,28 @@
 using json = nlohmann::json;
 using namespace curlpp::options;
 
-class ExercisePlan : public HealthPlan
+// virtual inheritence ensures only one copy of a base class's member variables are inherited by grandchild derived classes
+class ExercisePlan : virtual public HealthPlan
 {
 private:
-	//void CreateWeeklyExercises(); 
 
 protected:
 	// TODO: change limit to 6 workouts + 2 cardio? per day of week (6+2 * 7) = 56, assign 6 different workouts (3 of one muscle group each) for a day then 2 cardio
 	// TODO: add category to link to search for more specific exercises
-	std::string result_limit = "10"; 
-	std::string API_url = "https://wger.de/api/v2/exercise/?language=2&limit=" + result_limit;
-	std::string API_token = "4bcc206865aff5431894a6bd1fd5efd69134013d";
+	std::string category_url = "https://wger.de/api/v2/exercisecategory/";
 
-	//std::unordered_map<int, std::string> DayOfTheWeek; 
-	
+	std::string result_limit = "3"; 
+	std::string exercise_url = "https://wger.de/api/v2/exercise/?language=2&limit=" + result_limit + "&category="; 
+
 	// data payload
+	json payload; 
 	json ExerciseData; 
+	json Categories; 
 
 public:
-	ExercisePlan() {}
+	ExercisePlan() {
+		API_token = "4bcc206865aff5431894a6bd1fd5efd69134013d";
+	}
 
 	// TODO: make algorithm based off BMI to create and Exercise plan for each weight category ie normal, overweight, etc...
 	ExercisePlan(int age, std::string sex, double weight, double height) {} 
@@ -47,15 +51,42 @@ public:
 	virtual void Print() = 0; 
 	virtual std::string GetWorkoutName() { return ""; }
 
+	void SetExerciseData(json e) { this->ExerciseData = e; }
 	json GetExerciseData() { return this->ExerciseData; }
-	//std::unordered_map<std::string, std::vector<ExercisePlan*>>& GetWeeklyExercises() { return WeeklyExercises;}
-
-	// Request payload body from exercise api and return a json object
-	// this function parses the response and store it in exercise data
 
 	// ONLY CALL THIS ONCE
 	// Calls API and parses json payload to json object
-	void SendAPIRequest();
+	// Returns json payload
+	const json& CallAPI() { 
+		if(APIFunction == nullptr){
+        	throw std::runtime_error("Invalid API");
+        }
+		// for this specific api , we just need the results
+		this->payload = APIFunction->CallAPI(this)["results"]; 
+		// this->payload = this->payload["results"];
+
+		return this->payload; 
+	}
+
+	// Function will init the exercise categories using an API call
+	void InitCategories() {
+		setAPIFunction(new APICaller());
+		// Set the url 
+		this->API_url = this->category_url;
+		this->Categories = CallAPI();
+	}
+
+	void setAPIurl(std::string url) { this->API_url = url; }
+	std::string getAPIurl() { return API_url; }
+
+	void setAPItoken(std::string token) { this->API_token = token; }
+	std::string getAPItoken() { return API_token; }
+
+	std::string getExerciseUrl() { return this->exercise_url; }
+
+	std::string getCategoryID(std::string key) { return Categories[key]; }
+
+	const json& getCategories() { return this->Categories; }
 };
 
 

@@ -4,7 +4,7 @@
 #include "ExercisePlan.hpp" 
 #include "Workout.hpp"
 
-class Routine : public ExercisePlan{
+class Routine : public ExercisePlan {
 private:
 	typedef std::vector<std::pair<std::string, ExercisePlan*>> PairVector;
 	// Using vector of pairs to keep insertion order, but still have key, value pairs
@@ -12,17 +12,16 @@ private:
 
 public: 
 	Routine() {}
+	Routine(int age, std::string sex, double weight, double height) : HealthPlan(age, sex, weight, height) {}
 	Routine(PairVector r) : routines{r} {}
 
-	void AddWorkoutsFromJSON(json workouts) {
-		// TODO: CREATE STRATEGY CLASS FOR API
-		// SO ONLY CALL ONCE
+	void AddWorkoutsFromJSON(const json& workouts) {
+		// ExerciseData = workouts; 
 
-		ExerciseData = workouts; 
-
-		for(auto exercise : ExerciseData) {
-			std::string exercise_name = exercise["name"].get<std::string>();
-			Add(exercise_name, new Workout(exercise_name)); 
+		for(auto workout : workouts) {
+			std::string exercise_name = workout["name"].get<std::string>();
+			std::string exercise_desc = workout["description"].get<std::string>();
+			Add(exercise_name, new Workout(exercise_name, exercise_desc)); 
 
 			// std::cout << exercise["name"].get<std::string>() << std::endl;
 			// WORKS
