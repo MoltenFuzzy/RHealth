@@ -11,9 +11,13 @@ class HealthApp
 {
 private:
 	std::vector<std::string> DaysOfWeek = {"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"};
-	
+	void PrintInterface(); 
+
 public:
 	HealthApp() {}
+
+	void Run(); 
+
 	// TODO: add more methods
 	// All these values should be metric
 	HealthPlan* CreateExercisePlan(int age, std::string sex, double weight, double height);
