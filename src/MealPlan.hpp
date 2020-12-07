@@ -1,6 +1,7 @@
 #ifndef MEALPLAN_HPP
 #define MEALPLAN_HPP
 
+
 #include "HealthPlan.hpp"
 #include <vector>
 #include <string>
@@ -17,4 +18,6 @@ class MealPlan : public HealthPlan {
 		void ObeseWeightMealPlan();
 };
 
+
 #endif // MEALPLAN_HPP
+

@@ -21,9 +21,7 @@
  > * Why is it important or interesting to you?
  >   * This project is important because its purpose is to help people become healthy. By seeing where there are gaps in the health of the user, the program will tailor a meal plan and exercise routine for them. Instead of having a doctor simply say to a patient “eat healthier and exercise more”, now the patient can see exactly what foods to add to their diet and how much exercise to do in order to fill in the gaps in their health.
  > * What languages/tools/technologies do you plan to use? (This list may change over the course of the project)
- >   * [toolname](link) - Short description
  >   * C++ - a cross-platform language that can be used to create high-performance applications.
- >   * GTK, Qt, or wxWidgets - GUI libraries that work with C++ and that we could possibly use since we would like to have graphical user interface (GUI) within our project idea. We are not too familiar with creating GUIs, so we will be starting earlier to test and see which tools we prefer. 
  >   * REST, RESTful - API libraries that work with C++ and are considering since we would like our project to use an application programming interface (API) 
  > * What will be the input/output of your project?
  >   * Our application will focus on the health and wellness of the user by asking the user for general information such as age, sex, weight, and height, as well as more detailed information obtained through blood tests such as cholesterol levels, blood pressure, vitamin levels, and iron (hemoglobin) levels. These numbers will be used by the application to output a meal plan and exercise routine tailored to the information that the user inputed. We are not sure if we may just generate a list of foods the user can consider adding to their diet to help balance any deficiencies or if in addition to a list also provide the user with recipes to use these foods in (either pull recipes from the web or generate them ourselves). As for the exercise we could ask the user for what type or form of exercise they like and provide tailored routines based on that.
@@ -31,7 +29,8 @@
  >   * Explain in 3 - 5 sentences why you picked this pattern and what feature you will implement with it
  >   * **Composite**: Like mentioned in class a composite design pattern allows for simple and complex hierarchies. In class Professor Reem used the example of graphics being broken down to lines, rectangles, and text. We thought this design pattern would work well for our project, because of diversity our application will allow. Our application will not be restricted to any one group of people, but everyone. So this design pattern will allow us to put our users into specific hierarchies. 
  >   * **Facade**: The Facade design pattern hides the complexities of the system and provides an interface in this case a graphical interface for the client. We decided on this design pattern because the client should not have to worry about the complexities of the application. This lets the client focus on the purpose of the application itself. Therefore to implement a facade pattern, we must provide a simple interface, which is then linked to the GUI components in our application. 
- >   * **Visitor**: We have not gone over the visitor design pattern yet in class, but from our group’s research this pattern seems to be useful for our project. Since our project will be taking many different inputs from the user and having to do different calculations for each input the visitor design pattern will make adding new systems easy, because we will not have to affect other existing item classes that we have created. The visitor design pattern is used when you perform an operation on similar kinds of objects. Since our inputs can be diverse we will use this pattern for each group we create and conduct their calculations within them
+ >   * **Strategy**: The strategy pattern will be used within our exercise and meal plan subclasses. Since both of these subclasses will need to access an API to retrieve data, the strategy pattern allows us to effeciently reuse the code needed to handle anything related to an API. An API handler interface is the base class that will have different HTTP methods implemented as subclasses such as, Call(GET), PUT, etc. This makes it so that there is one accessible interface that can be used by the subclasses of HealthPlan. The reason as to why we decided to use this instead of the visitor pattern is due to the complexity as well as no known use for it within the project.  
+
  > * This description should be in enough detail that the TA/instructor can determine the complexity of the project and if it is sufficient for the team members to complete in the time allotted. 
 
  > ## Phase II
@@ -47,7 +46,7 @@
 ## Class Diagram
  > Include a class diagram(s) for each design pattern and a description of the diagram(s). This should be in sufficient detail that another group could pick up the project this point and successfully complete it. Use proper OMT notation (as discussed in the course slides). You may combine multiple design patterns into one diagram if you'd like, but it needs to be clear which portion of the diagram represents which design pattern (either in the diagram or in the description).
  
- ![Design Diagram](https://user-images.githubusercontent.com/46156230/99871298-ec504a00-2b8d-11eb-8396-c7e4dceed3e6.png)
+![Design Diagram](https://user-images.githubusercontent.com/46156230/100715645-588c3400-336c-11eb-9ac6-2c0e1ed37ac1.png)
  
 > The following diagram depicts all of the design patterns we plan to use in our final project, including Composite, Visitor, and Facade. The general part of the diagram with the WeightTracker class and its two children Exercise and MealPlan depict the composite pattern, which is where the main part of our computation will be. Our Facade and Visitor design pattern are both implemented through our Object Structure / Facade. This element is basically our main which will take in all of our user inputs, implementing our visitor pattern, and also being translated to our GUI application, acting as our facade pattern as well. The client is the user translating their answers into the main. The “client” is not any implementation on our part, it is just a representation of the user and where they will access our program.
  
@@ -72,3 +71,35 @@
  ## Testing
  > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
  
+## How to build
+> We are using vcpkg to install libraries for C++
+
+> Installation differs for each OS
+
+> The dependencies include:
+
+* gtest
+* curl
+* curlpp
+* nlohmann_json
+
+## Refer to [vcpkg](https://github.com/Microsoft/vcpkg/) for more information
+
+## Requires
+* Windows 7 or newer
+* Git
+* Visual Studio 2015 Update 3 or greater with the English language pack
+
+### Install via vcpkg (WINDOWS64)
+
+```.\lib\vcpkg\bootstrap-vcpkg.bat```
+
+```.\lib\vcpkg\vcpkg integrate install```
+
+```.\lib\vcpkg\vcpkg install gtest --triplet=x64-windows```
+
+```.\lib\vcpkg\vcpkg install curl --triplet=x64-windows```
+
+```.\lib\vcpkg\vcpkg install curlpp --triplet=x64-windows```
+
+> nlohmann_json does not need to be installed as it is a submodule
