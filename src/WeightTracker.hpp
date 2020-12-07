@@ -3,23 +3,20 @@
 
 #include "HealthPlan.hpp"
 
+using namespace std;
 
 class WeightTracker : public HealthPlan {
 
 private:
 	/* data */
 	double bmi;
-	double _height;
-	double _weight;
 public:
 	/* Constructor */
-	WeightTracker() : HealthPlan() { };
+	WeightTracker() { }
 
 	/* functions */
-	void set_height(double height);
-	void set_weight(double weight);
-	double BmiCalculator(double height, double weight);
-	void BmiLevel(double bmi);
+	void WeightTracker(int age, string sex, double weight, double height);
+	void BMICalculator(double weight, double height);
 	
 	
 };
