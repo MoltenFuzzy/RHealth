@@ -13,9 +13,9 @@ TEST(ExercisePlanTest, AddElementLeafTest)
 	std::string workout2 = "Sit Ups";
 	std::string workout3 = "10k Run";
 
-	Workout *PushUps = new Workout(workout1);
-	Workout *SitUps = new Workout(workout2);
-	Workout *TenK_run = new Workout(workout3);
+	Workout *PushUps = new Workout(workout1, "");
+	Workout *SitUps = new Workout(workout2, "");
+	Workout *TenK_run = new Workout(workout3, "");
 
 	Routine *test_plan = new Routine();
 
@@ -34,9 +34,9 @@ TEST(ExercisePlanTest, AddTreeTest)
 	std::string workout2 = "Sit Ups";
 	std::string workout3 = "10k Run";
 
-	Workout *PushUps = new Workout(workout1);
-	Workout *SitUps = new Workout(workout2);
-	Workout *TenK_run = new Workout(workout3);
+	Workout *PushUps = new Workout(workout1, "");
+	Workout *SitUps = new Workout(workout2, "");
+	Workout *TenK_run = new Workout(workout3, "");
 
 	Routine *MondayPlan = new Routine();
 	Routine *TuesdayPlan = new Routine();
@@ -73,9 +73,9 @@ TEST(ExercisePlanTest, RemoveElementTest)
 	std::string workout2 = "Sit Ups";
 	std::string workout3 = "10k Run";
 
-	Workout *PushUps = new Workout(workout1);
-	Workout *SitUps = new Workout(workout2);
-	Workout *TenK_run = new Workout(workout3);
+	Workout *PushUps = new Workout(workout1, "");
+	Workout *SitUps = new Workout(workout2, "");
+	Workout *TenK_run = new Workout(workout3, "");
 
 	Routine *test_plan = new Routine();
 
@@ -102,9 +102,9 @@ TEST(ExercisePlanTest, RemoveTreeTest)
 	std::string workout2 = "Sit Ups";
 	std::string workout3 = "10k Run";
 
-	Workout *PushUps = new Workout(workout1);
-	Workout *SitUps = new Workout(workout2);
-	Workout *TenK_run = new Workout(workout3);
+	Workout *PushUps = new Workout(workout1, "");
+	Workout *SitUps = new Workout(workout2, "");
+	Workout *TenK_run = new Workout(workout3, "");
 
 	Routine *MondayPlan = new Routine();
 	Routine *TuesdayPlan = new Routine();
