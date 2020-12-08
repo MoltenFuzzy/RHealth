@@ -2,11 +2,11 @@
 #include "HealthApp.hpp"
 
 int main()
-{	
+{
 
-	HealthApp RHealth; 
+	HealthApp RHealth;
 
-	RHealth.Run(); 
+	RHealth.Run();
 
 	return 0;
 }
