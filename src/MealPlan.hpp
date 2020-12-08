@@ -1,3 +1,6 @@
+#ifndef MEAL_PLAN
+#define MEAL_PLAN
+
 #include "HealthPlan.hpp"
 
 class MealPlan : public HealthPlan
@@ -9,4 +12,5 @@ public:
 	~MealPlan();
 };
 
+#endif // MEAL_PLAN
 
