@@ -59,34 +59,80 @@ void HealthApp::Run() {
 	}
 
 	int option_num = 0; 
+	bool exit_flag = false; 
 
-	std::cout << "Select One of The Options" << std::endl;
-	std::cout << "1. Weight Tracker" <<  std::endl;
-	std::cout << "2. Meal Plan" << std::endl;
-	std::cout << "3. Exercise Plan" << std::endl;
+	// TODO: ADD LOOP HERE
+	while(!exit_flag) {
+		std::cout << "Select One of The Options" << std::endl;
+		std::cout << "1. Weight Tracker" <<  std::endl;
+		std::cout << "2. Meal Plan" << std::endl;
+		std::cout << "3. Exercise Plan" << std::endl;
+		std::cout << "4. Exit" << std::endl;
 
-	std::cin >> option_num; 
+		std::cin >> option_num; 
 
-	switch(option_num) {
-		case 1: //WeightTrackerInterface(); 
-		case 2:	//MealPlanInterface(); 
-		case 3: 
-				// TODO: Create a function for this
-				std::cout << "Select One of The Options" << std::endl;
-				// Call create exercise plan function
-				std::cout << "1. Create new exercise plan" <<  std::endl;
-				// Print the current exercise plan
-				std::cout << "2. View current exercise plan" << std::endl;
-				// TODO: add search function for composite tree
-				std::cout << "3. Search for an exercise" << std::endl;
-				// Load an exercise plan if there was one saved
-				std::cout << "4. Load exercise plan" << std::endl;
-				// Save the exercise plan, not sure if we are caching user data 
-				std::cout << "5. Save exercise plan" << std::endl;
-				// not sure how to go back lol
-				std::cout << "6. Back" << std::endl;
+		switch(option_num) {
+			case 1: //WeightTrackerInterface(); 
+			case 2:	//MealPlanInterface(); 
+			case 3: 
+					{
+						// TODO: Create a function for this
+						auto ExercisePlanInterface = [&]() {
+							bool go_back_flag = true; 
+							HealthPlan* ExercisePlan = nullptr; 
+
+							while(go_back_flag) {
+								int input = 0;  
+								std::cout << "Select One of The Options" << std::endl;
+								// Call create exercise plan function
+								std::cout << "1. Create new exercise plan" <<  std::endl;
+								// Print the current exercise plan
+								std::cout << "2. View current exercise plan" << std::endl;
+								// TODO: add search function for composite tree
+								std::cout << "3. Search for an exercise in the plan" << std::endl;
+								// Load an exercise plan if there was one saved
+								std::cout << "4. Load exercise plan" << std::endl;
+								// Save the exercise plan, not sure if we are caching user data 
+								std::cout << "5. Save exercise plan" << std::endl;
+								// not sure how to go back lol
+								std::cout << "6. Back" << std::endl;
+
+								std::cin >> input; 
+
+								switch(input) { 
+									case 1: 
+										std::cout << "Creating New Exercise Plan...\n";
+										ExercisePlan = CreateExercisePlan(age, sex, weight, height);
+										// TODO: CHECK IF API CALL FAILS 
+										// IF IT FAILS RETURN AN ERROR TO USER
+										std::cout << "Exercise Plan Successfully Created!\n";
+										break;
+									case 2:
+										if(ExercisePlan == nullptr) {
+											std::cout << "Exercise Plan Does Not Exist\n";
+										}
+										else {
+											ExercisePlan->Print(); 
+										}
+										break;
+									case 3: break;
+									case 4: break;
+									case 5: break;
+									case 6:
+										// Leave loop
+										go_back_flag = false;  
+										break;
+								}
+							}
+						};
+						ExercisePlanInterface(); 
+						break;
+					}
+			case 4: 
+				exit_flag = true; 
+				break;
+		}
 	}
-
 	// NOTE: Enter as standard, convert to metric
 	// HealthPlan* ExercisePlan = CreateExercisePlan(20, "Male", 80, 180);
 
