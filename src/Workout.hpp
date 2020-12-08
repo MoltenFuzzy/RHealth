@@ -14,9 +14,9 @@ public:
 	std::string GetName() { return name; }
 	std::string GetDesc() { return description; }
 
-	void Print()
+	void Print(std::ostream &outs)
 	{
-		std::cout << this->name;
+		outs << this->name;
 	}
 };
 

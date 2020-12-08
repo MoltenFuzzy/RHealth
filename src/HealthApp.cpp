@@ -5,6 +5,10 @@ void HealthApp::Run()
 	int age = 0;
 	std::string sex;
 	double height = 0.0;
+	int feet = 0;
+	char dummy;
+	int inches = 0;
+
 	double weight = 0.0;
 	char answer;
 
@@ -17,12 +21,13 @@ void HealthApp::Run()
 	During pregnancy and lactation, a woman's body composition changes, so using BMI is not appropriate.
 	*/
 
-	std::cout << R"(        	______ _   _            _ _   _     
-		| ___ \ | | |          | | | | |    
-		| |_/ / |_| | ___  __ _| | |_| |__  
-		|    /|  _  |/ _ \/ _` | | __| '_ \ 
-		| |\ \| | | |  __/ (_| | | |_| | | |
-		\_| \_\_| |_/\___|\__,_|_|\__|_| |_| )"
+	std::cout << R"(
+			______ _   _            _ _   _     
+			| ___ \ | | |          | | | | |    
+			| |_/ / |_| | ___  __ _| | |_| |__  
+			|    /|  _  |/ _ \/ _` | | __| '_ \ 
+			| |\ \| | | |  __/ (_| | | |_| | | |
+			\_| \_\_| |_/\___|\__,_|_|\__|_| |_| )"
 			  << "\n\n";
 
 	std::cout << "Our goal is to create a tailored health plan based on your age, sex, weight and height.\n";
@@ -37,25 +42,29 @@ void HealthApp::Run()
 	std::cin >> sex;
 
 	std::cout << "Enter your height (ex. 5'7): ";
-	std::cin >> height;
+	std::cin >> feet >> dummy >> inches;
 
 	std::cout << "Enter your weight (ex. 120.5): ";
 	std::cin >> weight;
 
 	std::cout << "You entered the following..." << std::endl;
 	std::cout << "Age: " << age << std::endl;
-	std::cout << "Height: " << height << std::endl;
+	std::cout << "Height: " << feet << dummy << inches << std::endl;
 	std::cout << "Sex: " << sex << std::endl;
 	std::cout << "Weight: " << weight << std::endl;
+
+	// Convert all values to metric
+	height = feet + (inches / 12.0);
+	weight /= 2.205;
 
 	std::cout << "If the information entered is incorrect please enter 'I'. If the information is correct please enter 'C'." << std::endl;
 	std::cin >> answer;
 
-	if (answer == 'c' || answer == 'C')
+	if (std::tolower(answer) == 'c')
 	{
 		std::cout << "The information you have entered is correct. Your health plan is now generating..." << std::endl;
 	}
-	if (answer != 'c' || answer != 'C')
+	else
 	{
 		std::cout << "The information you entered is incorrect. The program will now exit" << std::endl;
 	}
@@ -83,7 +92,7 @@ void HealthApp::Run()
 			// TODO: Create a function for this
 			auto ExercisePlanInterface = [&]() {
 				bool go_back_flag = true;
-				HealthPlan *ExercisePlan = nullptr;
+				HealthPlan *Exercise_Plan = nullptr;
 
 				while (go_back_flag)
 				{
@@ -93,8 +102,8 @@ void HealthApp::Run()
 					std::cout << "1. Create new exercise plan" << std::endl;
 					// Print the current exercise plan
 					std::cout << "2. View current exercise plan" << std::endl;
-					// TODO: add search function for composite tree
-					std::cout << "3. Search for an exercise in the plan" << std::endl;
+					// Get the details about an specific workout
+					std::cout << "3. Get more info about an exercise" << std::endl;
 					// Load an exercise plan if there was one saved
 					std::cout << "4. Load exercise plan" << std::endl;
 					// Save the exercise plan, not sure if we are caching user data
@@ -107,24 +116,52 @@ void HealthApp::Run()
 					switch (input)
 					{
 					case 1:
+					{
 						std::cout << "Creating New Exercise Plan...\n";
-						ExercisePlan = CreateExercisePlan(age, sex, weight, height);
+						Exercise_Plan = CreateExercisePlan(age, sex, weight, height);
 						// TODO: CHECK IF API CALL FAILS
 						// IF IT FAILS RETURN AN ERROR TO USER
 						std::cout << "Exercise Plan Successfully Created!\n";
-						break;
+					}
+					break;
 					case 2:
-						if (ExercisePlan == nullptr)
+					{
+						if (Exercise_Plan == nullptr)
 						{
 							std::cout << "Exercise Plan Does Not Exist\n";
 						}
 						else
 						{
-							ExercisePlan->Print();
+							Exercise_Plan->Print(std::cout);
 						}
-						break;
+					}
+					break;
 					case 3:
-						break;
+					{
+						if (Exercise_Plan != nullptr)
+						{
+							std::string input_workout;
+							std::cout << "Enter a workout from your plan to get more details: ";
+							std::cin.ignore();
+							std::getline(std::cin, input_workout);
+							ExercisePlan *wk = dynamic_cast<ExercisePlan *>(Exercise_Plan)->Search(input_workout);
+
+							if (wk != nullptr)
+							{
+								std::cout << "Name: " << wk->GetName() << std::endl;
+								std::cout << "Description: " << wk->GetDesc() << std::endl;
+							}
+							else
+							{
+								std::cout << "Workout not found!" << std::endl;
+							}
+						}
+						else
+						{
+							std::cout << "Exercise Plan Does Not Exist\n";
+						}
+					}
+					break;
 					case 4:
 						break;
 					case 5:

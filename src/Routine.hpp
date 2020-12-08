@@ -24,6 +24,22 @@ public:
 		{
 			std::string exercise_name = workout["name"].get<std::string>();
 			std::string exercise_desc = workout["description"].get<std::string>();
+
+			// Remove paragraph tags <p> </p>
+			size_t pos = exercise_desc.find("<p>");
+			if (pos != std::string::npos)
+			{
+				// If found then erase it from string
+				exercise_desc.erase(pos, exercise_desc.length());
+			}
+
+			pos = exercise_desc.find("</p>");
+			if (pos != std::string::npos)
+			{
+				// If found then erase it from string
+				exercise_desc.erase(pos, exercise_desc.length());
+			}
+
 			Add(exercise_name, new Workout(exercise_name, exercise_desc));
 
 			// std::cout << exercise["name"].get<std::string>() << std::endl;
@@ -41,31 +57,54 @@ public:
 	void Remove(std::string key, ExercisePlan *value)
 	{
 		PairVector::iterator it = std::find(routines.begin(), routines.end(), std::make_pair(key, value));
-		bool found_it = it != routines.end();
-		if (found_it)
+		// bool found_it = it != routines.end();
+		if (it != routines.end())
 		{
 			routines.erase(it);
 		}
 	}
 
-	void Print()
+	// RETURNS NULLPTR IF NONE FOUND
+	ExercisePlan *Search(std::string key)
+	{
+		for (const auto &x : routines)
+		{
+			PairVector daily_routines = static_cast<Routine *>(x.second)->GetRoutines();
+			for (const auto &y : daily_routines)
+			{
+				if (y.first == key)
+				{
+					return y.second;
+				}
+			}
+		}
+		return nullptr;
+	}
+
+	void Print(std::ostream &outs)
 	{
 		for (auto routine : routines)
 		{
 			// Only print if the key is a day of the week
 			if (std::find(DaysOfWeek.begin(), DaysOfWeek.end(), routine.first) != DaysOfWeek.end())
 			{
-				std::cout << routine.first << std::endl;
+				outs << routine.first << std::endl;
 			}
 
-			routine.second->Print();
-			std::cout << std::endl;
+			routine.second->Print(outs);
+			outs << std::endl;
 		}
 	}
 
-	size_t Size() { return routines.size(); }
+	size_t Size()
+	{
+		return routines.size();
+	}
 
-	PairVector GetRoutines() { return this->routines; }
+	PairVector GetRoutines()
+	{
+		return this->routines;
+	}
 };
 
 #endif // ROUTINE

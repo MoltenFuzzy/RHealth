@@ -3,6 +3,7 @@
 
 #include "HealthPlan.hpp"
 #include "APICaller.hpp"
+// #include "Workout.hpp"
 
 #include <vector>
 #include <string>
@@ -17,6 +18,9 @@
 
 using json = nlohmann::json;
 using namespace curlpp::options;
+
+// forward declaring workout bc we need to return it
+// class Workout;
 
 // virtual inheritence ensures only one copy of a base class's member variables are inherited by grandchild derived classes
 class ExercisePlan : virtual public HealthPlan
@@ -47,8 +51,12 @@ public:
 	virtual size_t Size() { return 0; }
 	virtual void Add(std::string key, ExercisePlan *value) {}
 	virtual void Remove(std::string key, ExercisePlan *value) {}
-	virtual void Print() = 0;
-	virtual std::string GetWorkoutName() { return ""; }
+	// searches for the name of the workout
+	virtual ExercisePlan *Search(std::string key) { return nullptr; }
+	virtual void Print(std::ostream &outs) = 0;
+
+	virtual std::string GetName() { return ""; }
+	virtual std::string GetDesc() { return ""; }
 
 	void SetExerciseData(json e) { this->ExerciseData = e; }
 	json GetExerciseData() { return this->ExerciseData; }
