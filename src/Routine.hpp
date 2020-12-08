@@ -26,18 +26,15 @@ public:
 			std::string exercise_desc = workout["description"].get<std::string>();
 
 			// Remove paragraph tags <p> </p>
-			size_t pos = exercise_desc.find("<p>");
-			if (pos != std::string::npos)
+			while (exercise_desc.find("<") != std::string::npos)
 			{
-				// If found then erase it from string
-				exercise_desc.erase(pos, exercise_desc.length());
-			}
+				auto startpos = exercise_desc.find("<");
+				auto endpos = exercise_desc.find(">") + 1;
 
-			pos = exercise_desc.find("</p>");
-			if (pos != std::string::npos)
-			{
-				// If found then erase it from string
-				exercise_desc.erase(pos, exercise_desc.length());
+				if (endpos != std::string::npos)
+				{
+					exercise_desc.erase(startpos, endpos - startpos);
+				}
 			}
 
 			Add(exercise_name, new Workout(exercise_name, exercise_desc));

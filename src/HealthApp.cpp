@@ -149,7 +149,8 @@ void HealthApp::Run()
 							if (wk != nullptr)
 							{
 								std::cout << "Name: " << wk->GetName() << std::endl;
-								std::cout << "Description: " << wk->GetDesc() << std::endl;
+								std::cout << "Description:\n"
+										  << wk->GetDesc() << std::endl;
 							}
 							else
 							{
