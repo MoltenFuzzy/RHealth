@@ -32,7 +32,7 @@ protected:
 	std::string category_url = "https://wger.de/api/v2/exercisecategory/";
 
 	std::string result_limit = "3";
-	std::string exercise_url = "https://wger.de/api/v2/exercise/?language=2&limit=" + result_limit + "&category=";
+	std::string exercise_url = "https://wger.de/api/v2/exercise/?language=2&offset=5&limit=" + result_limit + "&category=";
 
 	// data payload
 	json payload;
