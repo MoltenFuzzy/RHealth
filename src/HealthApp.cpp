@@ -85,8 +85,16 @@ void HealthApp::Run()
 
 		switch (option_num)
 		{
-		case 1: //WeightTrackerInterface();
-		case 2: //MealPlanInterface();
+		case 1:
+		{
+			//WeightTrackerInterface();
+		}
+		break;
+		case 2:
+		{
+			//MealPlanInterface();
+		}
+		break;
 		case 3:
 		{
 			// TODO: Create a function for this
@@ -186,6 +194,13 @@ void HealthApp::Run()
 	// HealthPlan* ExercisePlan = CreateExercisePlan(20, "Male", 80, 180);
 
 	// ExercisePlan->Print();
+}
+
+HealthPlan *HealthApp::CreateWeightTracker(int age, std::string sex, double weight, double height)
+{
+	WeightTracker *tracker = new WeightTracker(age, sex, weight, height);
+
+	return tracker;
 }
 
 HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weight, double height)

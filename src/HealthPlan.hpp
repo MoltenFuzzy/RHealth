@@ -28,17 +28,18 @@ protected:
 
 public:
 	HealthPlan() {}
-	HealthPlan(int age, std::string sex, double weight, double height) : age{age}, sex{sex}, weight{weight}, height{height} {}
+	HealthPlan(int age, std::string sex, double weight, double height) : age{age}, sex{sex}, weight{weight}, height{height} { CalcBMI(weight, height); }
 	virtual void Add() {}
 	virtual void Remove() {}
 	virtual void Print(std::ostream &outs) {}
-	virtual std::string getAPIurl() = 0;
-	virtual std::string getAPItoken() = 0;
+	virtual std::string getAPIurl() { return API_url; }
+	virtual std::string getAPItoken() { return API_token; }
 
 	double getBMI() { return this->BMI; }
 
 	void setAPIFunction(APIHandler *function) { this->APIFunction = function; }
 
+	// Calculates BMI, sets it to the private member, and return BMI;
 	double CalcBMI(double weight, double height)
 	{
 		BMI = weight / pow(height / 100, 2);
