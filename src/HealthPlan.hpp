@@ -31,7 +31,7 @@ public:
 	HealthPlan(int age, std::string sex, double weight, double height) : age{age}, sex{sex}, weight{weight}, height{height} { CalcBMI(weight, height); }
 	virtual void Add() {}
 	virtual void Remove() {}
-	virtual void Print() {}
+	virtual void Print(std::ostream &outs) {}
 	virtual std::string getAPIurl() { return API_url; }
 	virtual std::string getAPItoken() { return API_token; }
 
