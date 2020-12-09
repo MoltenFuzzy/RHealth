@@ -32,3 +32,12 @@ TEST(APIHandlerTest, CallAPITest)
 		EXPECT_EQ(test_food_data[i]["title"], expected_data[i]["title"]);
 	}
 }
+
+// here we are testing for an exception thrown
+TEST(APIHandlerTest, APICallerIsNull)
+{
+	HealthPlan *test = new HealthPlan();
+	test->setAPIFunction(nullptr);
+
+	EXPECT_THROW(test->CallAPI(), std::runtime_error);
+}
