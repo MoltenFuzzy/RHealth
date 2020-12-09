@@ -23,16 +23,14 @@ SET(CMAKE_CXX_STANDARD 11)
 
 ADD_EXECUTABLE(Rhealth
     src/main.cpp
-    src/WeightTracker.hpp
-    src/HealthPlan.hpp
+    src/WeightTracker.cpp
     src/ExercisePlan.cpp
-    src/HealthPlan.hpp
+    src/HealthApp.cpp
 )
 
 ADD_EXECUTABLE(test
     tests/unit_test.cpp
-    src/WeightTracker.hpp
-    src/HealthPlan.hpp
+    src/WeightTracker.cpp
     src/ExercisePlan.cpp
     src/HealthApp.cpp
 )

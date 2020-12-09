@@ -2,11 +2,7 @@
 
 HealthPlan *HealthApp::CreateWeightTracker(int age, std::string sex, double weight, double height)
 {
-	WeightTracker *tracker = new WeightTracker();
-
-	tracker->BMICalculator(weight, height);
-
-	tracker->WeightTracker(age, sex, weight, height);
+	WeightTracker *tracker = new WeightTracker(age, sex, weight, height);
 
 	return tracker;
 }

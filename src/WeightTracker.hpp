@@ -7,18 +7,14 @@ using namespace std;
 
 class WeightTracker : public HealthPlan
 {
-
 private:
-	/* data */
-	double bmi;
-
 public:
 	/* Constructor */
 	WeightTracker() {}
+	WeightTracker(int age, string sex, double weight, double height) : HealthPlan(age, sex, weight, height) {}
 
-	/* functions */
-	void WeightTracker(int age, string sex, double weight, double height);
-	void BMICalculator(double weight, double height);
+	void DisplayWeightStatus();
+	void GiveHealthAdvice();
 };
 
 #endif //PROJECT_WEIGHT_TRACKER
