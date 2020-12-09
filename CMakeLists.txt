@@ -21,7 +21,7 @@ ADD_SUBDIRECTORY(lib/json)
 
 SET(CMAKE_CXX_STANDARD 11)
 
-ADD_EXECUTABLE(main
+ADD_EXECUTABLE(Rhealth
     src/main.cpp
     src/WeightTracker.hpp
     src/HealthPlan.hpp
