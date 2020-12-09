@@ -5,20 +5,20 @@
 
 using namespace std;
 
-class WeightTracker : public HealthPlan {
+class WeightTracker : public HealthPlan
+{
 
 private:
 	/* data */
 	double bmi;
+
 public:
 	/* Constructor */
-	WeightTracker() { }
+	WeightTracker() {}
 
 	/* functions */
 	void WeightTracker(int age, string sex, double weight, double height);
 	void BMICalculator(double weight, double height);
-	
-	
 };
 
-#endif //PROJECT_WEIGHT_TRACKER 
+#endif //PROJECT_WEIGHT_TRACKER
