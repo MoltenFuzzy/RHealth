@@ -21,14 +21,18 @@ ADD_SUBDIRECTORY(lib/json)
 
 SET(CMAKE_CXX_STANDARD 11)
 
-ADD_EXECUTABLE(Rhealth
+ADD_EXECUTABLE(main
     src/main.cpp
+    src/WeightTracker.hpp
+    src/HealthPlan.hpp
     src/ExercisePlan.cpp
-    src/HealthApp.cpp
+    src/HealthPlan.hpp
 )
 
 ADD_EXECUTABLE(test
     tests/unit_test.cpp
+    src/WeightTracker.hpp
+    src/HealthPlan.hpp
     src/ExercisePlan.cpp
     src/HealthApp.cpp
 )
@@ -44,3 +48,4 @@ TARGET_LINK_LIBRARIES(test PRIVATE CURL::libcurl)
     
 target_link_libraries(test PRIVATE GTest::gmock GTest::gtest GTest::gmock_main GTest::gtest_main)
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
+

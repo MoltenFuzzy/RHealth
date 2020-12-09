@@ -1,6 +1,10 @@
 #include <iostream>
+#include <string>
+
 #include "HealthApp.hpp"
 #include "ExercisePlan.hpp"
+#include "WeightTracker.hpp
+
 using namespace std;
 
 int main()
@@ -46,9 +50,11 @@ int main()
 	if (answer == 'c' || answer == 'C') {
 		cout << "The information you have entered is correct. Your health plan is now generating..." << endl;
 	}
-	if (answer != 'c' || answer != 'C') {
-		cout << "The information you entered is incorrect. The program will now exit" << endl;
+	else if (answer != 'c' || answer != 'C') {
+		cout << "The information you entered is incorrect. The program will now exit." << endl;
+		return 0;
 	}
+
 
 	cout << "Welcome to your RHealth Plan!" << endl;
 	//call functions			
@@ -58,6 +64,10 @@ int main()
 	HealthPlan* ExercisePlan = rhealth.CreateExercisePlan(20, "Male", 80, 180);
 
 	ExercisePlan->Print(); 
+  
+  HealthPlan* WeightTracker = rhealth.CreateWeightTracker(age, sex, weight, height);
+  
+  WeightTracker->Print();
 
 	return 0;
 }

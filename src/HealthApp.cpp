@@ -1,5 +1,15 @@
 #include "HealthApp.hpp"
 
+HealthPlan* HealthApp::CreateWeightTracker(int age, std::string sex, double weight, double height) {
+	WeightTracker* tracker = new WeightTracker();
+
+	tracker->BMICalculator(weight, height);
+
+	tracker->WeightTracker(age, sex, weight, height);
+  
+  return tracker;
+}
+
 HealthPlan* HealthApp::CreateExercisePlan(int age, std::string sex, double weight, double height) {
 	// might be more organized if i moved this to a function inside ExercisePlan
 
@@ -91,3 +101,4 @@ HealthPlan* HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 
 	return WeeklyExercisePlan; 
 }
+

@@ -9,8 +9,7 @@
 
 class APIHandler; 
 
-class HealthPlan
-{
+class HealthPlan {
 private:
 
 protected: 
@@ -51,6 +50,8 @@ public:
 	bool IsObese(double BMI) { return BMI >= 30.0; }
 
 };
+
+#endif
 
 
 #endif // HEALTH_PLAN
