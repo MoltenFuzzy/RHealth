@@ -34,11 +34,11 @@ void HealthApp::Run()
 	std::cout << "Our plan will include a list of meals and workouts to help you reach your goal.\n";
 	std::cout << "Let's get started!" << std::endl;
 
-
 	std::cout << "Enter your age: ";
 	std::cin >> age;
-	
-	while (age < 0 || isdigit(age) == false) {
+
+	while (age < 0 || isdigit(age))
+	{
 		std::cout << "The age you entered is invalid, please enter your age again" << endl;
 		std::cin >> age;
 	}
@@ -46,26 +46,29 @@ void HealthApp::Run()
 	std::cout << "Enter your sex (M/F): ";
 	std::cin >> sex;
 
-	while (sex != "M" || sex != "F") {
+	while (!(sex != "M" || sex != "F"))
+	{
 		std::cout << "The sex you entered is invalid, please enter your sex again" << endl;
 		std::cin >> sex;
 	}
 
 	std::cout << "Enter your height (ex. 5'7): ";
 	std::cin >> feet >> dummy >> inches;
-	
-	while (feet < 0 || isdigit(feet) == false || dummy != ''' || inches < 0 || isdigit(inches) == false) {
+
+	while (feet < 0 || isdigit(feet) || dummy != '\'' || inches < 0 || isdigit(inches))
+	{
 		std::cout << "The height you entered is invalid, please enter your height again" << endl;
 		std::cin >> feet >> dummy >> inches;
-	} 
+	}
 
 	std::cout << "Enter your weight (ex. 120.5): ";
 	std::cin >> weight;
 
-	while (weight < 0.0) {
-                std::cout << "The weight you entered is invalid, please enter your weight again" << endl;
-                std::cin >> weight;
-        }
+	while (weight < 0.0)
+	{
+		std::cout << "The weight you entered is invalid, please enter your weight again" << endl;
+		std::cin >> weight;
+	}
 
 	std::cout << "You entered the following..." << std::endl;
 	std::cout << "Age: " << age << std::endl;
@@ -101,7 +104,9 @@ void HealthApp::Run()
 		std::cout << "3. Exercise Plan" << std::endl;
 		std::cout << "4. Exit" << std::endl;
 
+		std::cout << "Option: ";
 		std::cin >> option_num;
+		std::cout << "\n";
 
 		switch (option_num)
 		{
@@ -139,7 +144,9 @@ void HealthApp::Run()
 					// not sure how to go back lol
 					std::cout << "6. Back" << std::endl;
 
+					std::cout << "Option: ";
 					std::cin >> input;
+					std::cout << "\n";
 
 					switch (input)
 					{
@@ -200,6 +207,7 @@ void HealthApp::Run()
 						go_back_flag = false;
 						break;
 					}
+					std::cout << std::endl;
 				}
 			};
 			ExercisePlanInterface();
@@ -210,10 +218,6 @@ void HealthApp::Run()
 			break;
 		}
 	}
-	// NOTE: Enter as standard, convert to metric
-	// HealthPlan* ExercisePlan = CreateExercisePlan(20, "Male", 80, 180);
-
-	// ExercisePlan->Print();
 }
 
 HealthPlan *HealthApp::CreateWeightTracker(int age, std::string sex, double weight, double height)
