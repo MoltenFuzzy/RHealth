@@ -34,18 +34,38 @@ void HealthApp::Run()
 	std::cout << "Our plan will include a list of meals and workouts to help you reach your goal.\n";
 	std::cout << "Let's get started!" << std::endl;
 
-	// TODO: Input validation
+
 	std::cout << "Enter your age: ";
 	std::cin >> age;
+	
+	while (age < 0 || isdigit(age) == false) {
+		std::cout << "The age you entered is invalid, please enter your age again" << endl;
+		std::cin >> age;
+	}
 
 	std::cout << "Enter your sex (M/F): ";
 	std::cin >> sex;
 
+	while (sex != "M" || sex != "F") {
+		std::cout << "The sex you entered is invalid, please enter your sex again" << endl;
+		std::cin >> sex;
+	}
+
 	std::cout << "Enter your height (ex. 5'7): ";
 	std::cin >> feet >> dummy >> inches;
+	
+	while (feet < 0 || isdigit(feet) == false || dummy != ''' || inches < 0 || isdigit(inches) == false) {
+		std::cout << "The height you entered is invalid, please enter your height again" << endl;
+		std::cin >> feet >> dummy >> inches;
+	} 
 
 	std::cout << "Enter your weight (ex. 120.5): ";
 	std::cin >> weight;
+
+	while (weight < 0.0) {
+                std::cout << "The weight you entered is invalid, please enter your weight again" << endl;
+                std::cin >> weight;
+        }
 
 	std::cout << "You entered the following..." << std::endl;
 	std::cout << "Age: " << age << std::endl;
