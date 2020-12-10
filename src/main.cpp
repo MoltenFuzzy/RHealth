@@ -9,11 +9,15 @@ int main()
 	HealthApp RHealth;
 
 	// Testing stuff
-	// HealthPlan *ExercisePlan = RHealth.CreateExercisePlan(20, "Male", 80, 180);
+	HealthPlan *Exercise_Plan = RHealth.CreateExercisePlan(20, "Male", 80, 180);
 
-	// ExercisePlan->Print(std::cout);
+	ExercisePlan *test = dynamic_cast<ExercisePlan *>(Exercise_Plan);
 
-	RHealth.Run();
+	test->Print(std::cout);
+	test->Search("Calf Raises");
+	std::cout << test->GetDesc();
+
+	// RHealth.Run();
 
 	return 0;
 }

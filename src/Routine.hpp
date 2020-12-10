@@ -37,6 +37,13 @@ public:
 				}
 			}
 
+			// size_t pos = exercise_desc.find(".");
+			// while (exercise_desc.find(".", pos) != std::string::npos)
+			// {
+			// 	exercise_desc.insert(pos + 1, "\n");
+			// 	pos = exercise_desc.find(".", pos);
+			// }
+
 			Add(exercise_name, new Workout(exercise_name, exercise_desc));
 
 			// std::cout << exercise["name"].get<std::string>() << std::endl;
