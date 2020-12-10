@@ -37,36 +37,32 @@ void HealthApp::Run()
 	std::cout << "Enter your age: ";
 	std::cin >> age;
 
-	while (age < 0 || isdigit(age))
-	{
-		std::cout << "The age you entered is invalid, please enter your age again" << endl;
+	while (age <= 0 || !(isdigit(age))) {
+		std::cout << "The age you entered is invalid, please enter your age again" << std::endl;
 		std::cin >> age;
 	}
 
 	std::cout << "Enter your sex (M/F): ";
 	std::cin >> sex;
 
-	while (!(sex != "M" || sex != "F"))
-	{
-		std::cout << "The sex you entered is invalid, please enter your sex again" << endl;
+	while (sex != "M" || sex != "F" || sex != "m" || sex != "f") {
+		std::cout << "The sex you entered is invalid, please enter your sex again" << std::endl;
 		std::cin >> sex;
 	}
 
 	std::cout << "Enter your height (ex. 5'7): ";
 	std::cin >> feet >> dummy >> inches;
 
-	while (feet < 0 || isdigit(feet) || dummy != '\'' || inches < 0 || isdigit(inches))
-	{
-		std::cout << "The height you entered is invalid, please enter your height again" << endl;
+	while (feet <= 0 || !(isdigit(feet)) || dummy != '\'' || inches <= 0 || !(isdigit(inches))) {
+		std::cout << "The height you entered is invalid, please enter your height again" << std::endl;
 		std::cin >> feet >> dummy >> inches;
 	}
 
 	std::cout << "Enter your weight (ex. 120.5): ";
 	std::cin >> weight;
 
-	while (weight < 0.0)
-	{
-		std::cout << "The weight you entered is invalid, please enter your weight again" << endl;
+	while (weight <= 0.0) {
+		std::cout << "The weight you entered is invalid, please enter your weight again" << std::endl;
 		std::cin >> weight;
 	}
 
