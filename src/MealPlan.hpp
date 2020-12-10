@@ -1,81 +1,52 @@
 #ifndef MEALPLAN_HPP
 #define MEALPLAN_HPP
 
+// Files
 #include "HealthPlan.hpp"
 #include "APICaller.hpp"
-
-#include <vector>
+#include "Meals.hpp"
+// User Libraries
 #include <string>
-#include <algorithm>
-#include <iostream>
+#include <vector>
 #include <sstream>
-
-#include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
+#include <iostream>
+// API Libraries
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 using namespace curlpp::options;
 
-
-class MealPlan : virtual public HealthPlan {
-	
-	private:
-		
+class MealPlan:virtual public HealthPlan{
 	protected:
-		std::string weeks_url = "";
-
-		std::string result_limit = "3"; 
-		std::string meal_url = "";
+		json MealData;
+		std::string meal_url="http://www.melskitchencafe.com/the-best-fudgy-brownies/";
 		
-		json payload; 
-		json MealData; 
-		json Weeks;
-
 	public:
-		MealPlan() {
-			API_token = "";
+		MealPlan(int age, std::string sex, double weight, double height){}
+
+		void MealPlan(){
+			setAPItoken("f6bcf37fdbmsh1c2a258eab8c8a6p1e59ddjsn1d8341acc7f8");
+			AddToAPIheader("f6bcf37fdbmsh1c2a258eab8c8a6p1e59ddjsn1d8341acc7f8");
+			AddToAPIheader("spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
 		}
 		
-		MealPlan(int age, std::string, double weight, double height) {}
+		virtual void Add(MealPlan * recipe){}
 
-		virtual size_t Size() { return 0; }
-		virtual void Add(std::string key, MealPlan* value) {}
-		virtual void Remove(std::string key, MealPlan* value) {}
-		virtual void Print() = 0; 
-		virtual std::string GetDailyMeal() { return ""; }
-			
-		void SetMealData(json e) { this->MealData = e; }
-		json GetMealData() { return this->MealData; }
+		virtual void Remove(MealPlan * recipe){}
 
-		const json& CallAPI() { 
-			if(APIFunction == nullptr){
-        			throw std::runtime_error("Invalid API");
-        		}
-			this->payload = APIFunction->CallAPI(this)["results"];
-			return this->payload; 
-		}
+		MealPlan GetChild(){}
 
-		void InitCategories() {
-			setAPIFunction(new APICaller());
-			this->API_url = this->weeks_url;
-			this->Weeks = CallAPI();
-		}
+		SetAPI(APIHandler* AnAPI) {}
 
-		void setAPIurl(std::string url) { this->API_url = url; }
-		std::string getAPIurl() { return API_url; }
-
-		void setAPItoken(std::string token) { this->API_token = token; }
-		std::string getAPItoken() { return API_token; }
-
-		std::string getMealUrl() { return this->meal_url; }
-	
-		std::string getWeeksID(std::string key) { return Weeks[key]; }
-	
-		const json& getWeeks() { return this->Weeks; }
+		const json &CallAPI(){
+			if(APIFunction==nullptr){
+				throw std::runtime_error("Invalid API");
+			}
+			else{
+				this->payload=APIFunction->CallAPI(this)["RecipeResults"];
+			}
+			return this->payload;
+		} 
 };
 
-
-#endif // MEALPLAN_HPP
-
+#endif // MEAL_HPP
