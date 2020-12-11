@@ -1,16 +1,7 @@
-#ifndef MEALPLAN_HPP
-#define MEALPLAN_HPP
+#ifndef MEAL_PLAN
+#define MEAL_PLAN
 
-// Files
 #include "HealthPlan.hpp"
-#include "APICaller.hpp"
-// User Libraries
-#include <string>
-#include <vector>
-#include <sstream>
-#include <iostream>
-// API Libraries
-#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 using namespace curlpp::options;
@@ -68,4 +59,4 @@ public:
 	std::string getMealUrl() { return meal_url; }
 };
 
-#endif // MEAL_HPP
+#endif // MEAL_PLAN
