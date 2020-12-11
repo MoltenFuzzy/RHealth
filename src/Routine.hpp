@@ -39,6 +39,23 @@ public:
 				}
 			}
 
+			// size_t pos = exercise_desc.find(".");
+			// while (exercise_desc.find(".", pos) != std::string::npos)
+			// {
+			// 	exercise_desc.insert(pos + 1, "\n");
+			// 	pos = exercise_desc.find(".", pos);
+			// }
+
+			// Formats the description to add newlines at every ". ", not just .
+			std::string sub_str = ". ";
+
+			size_t pos = exercise_desc.find(sub_str, 0);
+			while (pos != std::string::npos)
+			{
+				exercise_desc.insert(pos + 2, "\n");
+				pos = exercise_desc.find(sub_str, pos + 2);
+			}
+
 			Add(exercise_name, new Workout(exercise_name, exercise_desc));
 
 			// std::cout << exercise["name"].get<std::string>() << std::endl;
