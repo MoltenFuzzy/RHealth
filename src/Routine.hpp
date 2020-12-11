@@ -16,6 +16,8 @@ public:
 	Routine(int age, std::string sex, double weight, double height) : HealthPlan(age, sex, weight, height) {}
 	Routine(PairVector r) : routines{r} {}
 
+	// BUG: if json is not an array it will break
+	// ONLY ACCEPTS JSONs WITH AN ARRAY INSIDE, NOT SINGLE JSON OBJECTS
 	void AddWorkoutsFromJSON(const json &workouts)
 	{
 		// ExerciseData = workouts;

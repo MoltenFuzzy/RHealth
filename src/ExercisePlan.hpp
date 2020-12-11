@@ -26,6 +26,20 @@ using namespace curlpp::options;
 class ExercisePlan : virtual public HealthPlan
 {
 private:
+	void initCardioWorkouts()
+	{
+		Cardio = json::array();
+		Cardio.push_back(json::object({{"name", "Mountain Climbers"}, {"description", "Start from a high plank position with your hands stacked directly under your shoulders.\n Drive one knee forward toward your chest while engaging your abs.\n Return to your plank position, then drive the knee of your opposite foot in. Repeat the movement, alternating legs and speeding up your movements."}}));
+		Cardio.push_back(json::object({{"name", "Jump Rope"}, {"description", "Hold the rope while keeping your hands at hip level.\n Rotate your wrists to swing the rope and jump.\n Jump with both feet at the same time, one foot at a time, alternating between feeting, etc.\n Repeat until the set is complete."}}));
+		Cardio.push_back(json::object({{"name", "High Knees"}, {"description", "Start standing with feet hip-distance apart. Lift up right knee as high as it will go and raise the opposite arm, then switch quickly so left knee is up before right foot lands. Continue pulling knees up quirky for as long as desired."}}));
+		Cardio.push_back(json::object({{"name", "Plank"}, {"description", "1. Plant hands directly under shoulders (slightly wider than shoulder width) like you’re about to do a push-up. 2. Ground toes into the floor and squeeze glutes to stabilize your body. Your legs should be working, too — be careful not to lock or hyperextend your knees. 3. Neutralize your neck and spine by looking at a spot on the floor about a foot beyond your hands. Your head should be in line with your back. 4. Hold the position for 20 seconds. As you get more comfortable with the move, hold your plank for as long as possible without compromising your form or breath."}}));
+		Cardio.push_back(json::object({{"name", "Mile Run"}, {"description", "Maintain a constant pace while running 1 mile. You can run more if you want to."}}));
+		Cardio.push_back(json::object({{"name", "Burpees"},
+									   {"description", "Start in a squat position with your knees bent, back straight, and your feet about shoulder-width apart. Lower your hands to the floor in front of you so they’re just inside your feet.With your weight on your hands, kick your feet back so you’re on your hands and toes, and in a pushup position.Keeping your body straight from head to heels, do one pushup.Remember not to let your back sag or to stick your butt in the air.Do a frog kick by jumping your feet back to their starting position.Stand and reach your arms over your head.Jump quickly into the air so you land back where you started.As soon as you land with knees bent, get into a squat position and do another repetition."}}));
+		Cardio.push_back(json::object({{"name", "Jumping Jacks"},
+									   {"description", "Start standing up with your legs together, a slight bend in knees, and hands resting on thighs. Keeping the knees bent, open the arms and legs out to the sides.Arms come above the head and legs wider than shoulders.Close your arms and legs back to your sides, returning to your start."}}));
+	}
+
 protected:
 	// TODO: change limit to 6 workouts + 2 cardio? per day of week (6+2 * 7) = 56, assign 6 different workouts (3 of one muscle group each) for a day then 2 cardio
 	// TODO: add category to link to search for more specific exercises
@@ -41,6 +55,7 @@ protected:
 	// data
 	json ExerciseData;
 	json Categories;
+	json Cardio;
 
 public:
 	ExercisePlan()
@@ -48,6 +63,8 @@ public:
 		API_token = "4bcc206865aff5431894a6bd1fd5efd69134013d";
 		API_header.push_back("Authorization: Token " + API_token);
 		API_header.push_back("Accept: application/json; indent=4");
+
+		initCardioWorkouts();
 	}
 
 	// TODO: make algorithm based off BMI to create and Exercise plan for each weight category ie normal, overweight, etc...
@@ -65,6 +82,8 @@ public:
 
 	void SetExerciseData(json e) { this->ExerciseData = e; }
 	json GetExerciseData() { return this->ExerciseData; }
+
+	const json &GetCardioJSON() { return this->Cardio; }
 
 	// ONLY CALL THIS ONCE
 	// Calls API and parses json payload to json object
