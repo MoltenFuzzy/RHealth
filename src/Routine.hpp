@@ -51,7 +51,26 @@ public:
 				}
 			}
 
+<<<<<<< HEAD
 			// std::shared_ptr<Workout> w = std::make_shared<Workout>(exercise_name, exercise_desc);
+=======
+			// size_t pos = exercise_desc.find(".");
+			// while (exercise_desc.find(".", pos) != std::string::npos)
+			// {
+			// 	exercise_desc.insert(pos + 1, "\n");
+			// 	pos = exercise_desc.find(".", pos);
+			// }
+
+			// Formats the description to add newlines at every ". ", not just .
+			std::string sub_str = ". ";
+
+			size_t pos = exercise_desc.find(sub_str, 0);
+			while (pos != std::string::npos)
+			{
+				exercise_desc.insert(pos + 2, "\n");
+				pos = exercise_desc.find(sub_str, pos + 2);
+			}
+>>>>>>> master
 
 			Add(exercise_name, new Workout(exercise_name, exercise_desc));
 			// Add(exercise_name, &*w);
