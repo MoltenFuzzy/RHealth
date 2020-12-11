@@ -138,11 +138,11 @@ void HealthApp::Run()
 					// Get the details about an specific workout
 					std::cout << "3. Get more info about an exercise" << std::endl;
 					// Load an exercise plan if there was one saved
-					std::cout << "4. Load exercise plan" << std::endl;
-					// Save the exercise plan, not sure if we are caching user data
-					std::cout << "5. Save exercise plan" << std::endl;
-					// not sure how to go back lol
-					std::cout << "6. Back" << std::endl;
+					// std::cout << "4. Load exercise plan" << std::endl;
+					// // Save the exercise plan, not sure if we are caching user data
+					// std::cout << "5. Save exercise plan" << std::endl;
+					// // not sure how to go back lol
+					std::cout << "4. Back" << std::endl;
 
 					std::cout << "Option: ";
 					std::cin >> input;
@@ -199,10 +199,6 @@ void HealthApp::Run()
 					}
 					break;
 					case 4:
-						break;
-					case 5:
-						break;
-					case 6:
 						// Leave loop
 						go_back_flag = false;
 						break;
@@ -232,7 +228,7 @@ HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 	// might be more organized if i moved this to a function inside ExercisePlan
 
 	// TODO: TURN POINTERS INTO SMART POINTERS
-	ExercisePlan *WeeklyExercisePlan = new Routine();
+	ExercisePlan *WeeklyExercisePlan = new Routine(age, sex, weight, height);
 
 	double BMI = WeeklyExercisePlan->CalcBMI(weight, height);
 

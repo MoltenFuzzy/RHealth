@@ -75,7 +75,7 @@ public:
 	virtual void Remove(std::string key, ExercisePlan *value) {}
 	// searches for the name of the workout
 	virtual ExercisePlan *Search(std::string key) { return nullptr; }
-	virtual void Print(std::ostream &outs) = 0;
+	virtual void Print(std::ostream &outs) {}
 
 	virtual std::string GetName() { return ""; }
 	virtual std::string GetDesc() { return ""; }

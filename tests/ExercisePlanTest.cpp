@@ -142,6 +142,35 @@ TEST(ExercisePlanTest, RemoveTreeTest)
 	EXPECT_EQ(WeeklyPlanTest->Size(), 0);
 }
 
+TEST(ExercisePlanTest, RemoveWorkoutTest)
+{
+	std::string workout1 = "Push Ups";
+	std::string workout2 = "Sit Ups";
+	std::string workout3 = "10k Run";
+
+	Workout *PushUps = new Workout(workout1, "");
+	Workout *SitUps = new Workout(workout2, "");
+	Workout *TenK_run = new Workout(workout3, "");
+
+	Routine *MondayPlan = new Routine();
+	Routine *TuesdayPlan = new Routine();
+
+	Routine *WeeklyPlanTest = new Routine();
+
+	// Adding
+	MondayPlan->Add(workout1, PushUps);
+	ASSERT_EQ(MondayPlan->Size(), 1);
+	MondayPlan->Add(workout2, SitUps);
+	MondayPlan->Add(workout3, TenK_run);
+
+	// Removing
+	MondayPlan->Remove(workout1, PushUps);
+	MondayPlan->Remove(workout2, SitUps);
+	MondayPlan->Remove(workout3, TenK_run);
+
+	EXPECT_EQ(WeeklyPlanTest->Size(), 0);
+}
+
 TEST(ExercisePlanTest, SearchTreeTest)
 {
 	std::string workout1 = "Push Ups";
