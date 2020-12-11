@@ -37,36 +37,41 @@ void HealthApp::Run()
 	std::cout << "Enter your age: ";
 	std::cin >> age;
 
-	while (age < 0 || isdigit(age))
+	//low <= x && x <= high
+	while (!(0 < age && age < 100))
 	{
-		std::cout << "The age you entered is invalid, please enter your age again" << endl;
+		std::cout << "The age you entered is invalid, please enter your age again" << std::endl;
+		std::cout << "Enter your age: ";
 		std::cin >> age;
 	}
 
 	std::cout << "Enter your sex (M/F): ";
 	std::cin >> sex;
 
-	while (!(sex != "M" || sex != "F"))
+	while (!(sex == "M" || sex == "F" || sex == "m" || sex == "f"))
 	{
-		std::cout << "The sex you entered is invalid, please enter your sex again" << endl;
+		std::cout << "The sex you entered is invalid, please enter your sex again" << std::endl;
+		std::cout << "Enter your sex (M/F): ";
 		std::cin >> sex;
 	}
 
 	std::cout << "Enter your height (ex. 5'7): ";
 	std::cin >> feet >> dummy >> inches;
 
-	while (feet < 0 || isdigit(feet) || dummy != '\'' || inches < 0 || isdigit(inches))
+	while (feet <= 0 || dummy != '\'' || inches <= 0)
 	{
-		std::cout << "The height you entered is invalid, please enter your height again" << endl;
+		std::cout << "The height you entered is invalid, please enter your height again" << std::endl;
+		std::cout << "Enter your height (ex. 5'7): ";
 		std::cin >> feet >> dummy >> inches;
 	}
 
 	std::cout << "Enter your weight (ex. 120.5): ";
 	std::cin >> weight;
 
-	while (weight < 0.0)
+	while (weight <= 0.0)
 	{
-		std::cout << "The weight you entered is invalid, please enter your weight again" << endl;
+		std::cout << "The weight you entered is invalid, please enter your weight again" << std::endl;
+		std::cout << "Enter your weight (ex. 120.5): ";
 		std::cin >> weight;
 	}
 
@@ -284,7 +289,7 @@ HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 	WeeklyExercisePlan->InitCategories();
 	json Categories = WeeklyExercisePlan->getCategories();
 
-	auto CreatePlan = [](json Categories, std::vector<std::string> DaysOfWeek, ExercisePlan *WeeklyExercisePlan) {
+	auto CreatePlan = [](double BMI, json Categories, std::vector<std::string> DaysOfWeek, ExercisePlan *WeeklyExercisePlan) {
 		// Creates exercise plan
 		int index{0};
 		for (const auto &day : DaysOfWeek)
@@ -324,39 +329,61 @@ HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 			WeeklyExercisePlan->SetExerciseData(WeeklyExercisePlan->CallAPI());
 			DailyRoutine->AddWorkoutsFromJSON(WeeklyExercisePlan->GetExerciseData());
 
-			WeeklyExercisePlan->Add(day, DailyRoutine);
+			// adding cardio
+			// underweight
+			// More weights, less cardio
+			if (WeeklyExercisePlan->IsUnderWeight(BMI))
+			{
+				json temp = WeeklyExercisePlan->GetCardioJSON();
+				for (int i = 0; i < temp.size() - 5; i++)
+				{
+					json temp2;
+					temp2.push_back(temp[i]);
+					DailyRoutine->AddWorkoutsFromJSON(temp2);
+				}
+			}
+			// normal
+			// normal weights, normal cardio
+			else if (WeeklyExercisePlan->IsNormalWeight(BMI))
+			{
+				json temp = WeeklyExercisePlan->GetCardioJSON();
+				for (int i = 0; i < temp.size() - 3; i++)
+				{
+					json temp2;
+					temp2.push_back(temp[i]);
+					DailyRoutine->AddWorkoutsFromJSON(temp2);
+				}
+			}
+			// overweight
+			// normal weights, more cardio
+			else if (WeeklyExercisePlan->IsOverWeight(BMI))
+			{
+				json temp = WeeklyExercisePlan->GetCardioJSON();
+				for (int i = 0; i < temp.size() - 2; i++)
+				{
+					json temp2;
+					temp2.push_back(temp[i]);
+					DailyRoutine->AddWorkoutsFromJSON(temp2);
+				}
+			}
+			// obese
+			// less weights, more cardio
+			else
+			{
+				json temp = WeeklyExercisePlan->GetCardioJSON();
+				for (int i = 0; i < temp.size(); i++)
+				{
+					json temp2;
+					temp2.push_back(temp[i]);
+					DailyRoutine->AddWorkoutsFromJSON(temp2);
+				}
+			}
 
+			WeeklyExercisePlan->Add(day, DailyRoutine);
 			// std::std::cout << "(" << *firstCategory << "," << *secondCategory << ")" << std::std::endl;
 		}
 	};
 
-	// TODO: ADD STRING PARAMETER TO CREATE PLAN TO INDENTIFY WEIGHT STATUS TO CREATE THE CORRECT PLAN
-	// Weight Status
-
-	// underweight
-	// More weights, less cardio
-	if (WeeklyExercisePlan->IsUnderWeight(BMI))
-	{
-		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
-	}
-	// normal
-	// normal weights, normal cardio
-	else if (WeeklyExercisePlan->IsNormalWeight(BMI))
-	{
-		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
-	}
-	// overweight
-	// normal weights, more cardio
-	else if (WeeklyExercisePlan->IsOverWeight(BMI))
-	{
-		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
-	}
-	// obese
-	// less weights, more cardio
-	else
-	{
-		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
-	}
-
+	CreatePlan(BMI, Categories, DaysOfWeek, WeeklyExercisePlan);
 	return WeeklyExercisePlan;
 }
