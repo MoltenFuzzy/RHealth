@@ -87,7 +87,9 @@ void HealthApp::Run()
 		{
 		case 1:
 		{
-			//WeightTrackerInterface();
+			HealthPlan *WeightTracker_Plan = nullptr;
+			WeightTracker_Plan = CreateWeightTracker(age, sex, weight, height);
+			WeightTracker_Plan->Print(std::cout);
 		}
 		break;
 		case 2:
@@ -199,6 +201,9 @@ void HealthApp::Run()
 HealthPlan *HealthApp::CreateWeightTracker(int age, std::string sex, double weight, double height)
 {
 	WeightTracker *tracker = new WeightTracker(age, sex, weight, height);
+	
+	tracker->DisplayWeightStatus();
+	tracker->GiveHealthAdvice();
 
 	return tracker;
 }
