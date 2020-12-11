@@ -92,6 +92,12 @@ public:
 		if (it != routines.end())
 		{
 			routines.erase(it);
+			// PairVector daily_routines = static_cast<Routine *>(value)->GetRoutines();
+			// for (auto &i : daily_routines)
+			// {
+			// 	delete i.second;
+			// }
+			// delete value;
 		}
 	}
 
