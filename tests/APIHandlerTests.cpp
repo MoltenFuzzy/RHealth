@@ -6,7 +6,7 @@
 #include "../src/Workout.hpp"
 #include "../src/Routine.hpp"
 
-TEST(APIHandlerTest, CallFoodAPITest)
+TEST(APIHandlerTest, CallAPITest)
 {
 	HealthPlan *test = new HealthPlan();
 	test->setAPIFunction(new APICaller());
@@ -33,6 +33,7 @@ TEST(APIHandlerTest, CallFoodAPITest)
 	}
 }
 
+<<<<<<< HEAD
 TEST(APIHandlerTest, CallExerciseAPITest)
 {
 	HealthPlan *test = new HealthPlan();
@@ -64,6 +65,8 @@ TEST(APIHandlerTest, CallInvalidAPITest)
 	EXPECT_EQ(test->CallAPI(), json());
 }
 
+=======
+>>>>>>> master
 // here we are testing for an exception thrown
 TEST(APIHandlerTest, APICallerIsNull)
 {

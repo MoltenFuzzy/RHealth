@@ -13,11 +13,23 @@ private:
 
 public:
 	Routine() {}
-	Routine(int age, std::string sex, double weight, double height) : HealthPlan(age, sex, weight, height) {}
-	Routine(PairVector r) : routines{r} {}
 
-	// BUG: if json is not an array it will break
-	// ONLY ACCEPTS JSONs WITH AN ARRAY INSIDE, NOT SINGLE JSON OBJECTS
+	Routine(int age, std::string sex, double weight, double height) : HealthPlan(age, sex, weight, height) {}
+
+	~Routine()
+	{
+		for (auto weekly : routines)
+		{
+			for (auto daily : static_cast<Routine *>(weekly.second)->GetRoutines())
+			{
+				delete daily.second;
+				daily.second = nullptr;
+			}
+			delete weekly.second;
+			weekly.second = nullptr;
+		}
+	}
+
 	void AddWorkoutsFromJSON(const json &workouts)
 	{
 		// ExerciseData = workouts;
@@ -57,6 +69,7 @@ public:
 			}
 
 			Add(exercise_name, new Workout(exercise_name, exercise_desc));
+			// Add(exercise_name, &*w);
 
 			// std::cout << exercise["name"].get<std::string>() << std::endl;
 			// WORKS
@@ -77,12 +90,6 @@ public:
 		if (it != routines.end())
 		{
 			routines.erase(it);
-			// PairVector daily_routines = static_cast<Routine *>(value)->GetRoutines();
-			// for (auto &i : daily_routines)
-			// {
-			// 	delete i.second;
-			// }
-			// delete value;
 		}
 	}
 

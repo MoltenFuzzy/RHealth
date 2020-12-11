@@ -28,6 +28,13 @@ ADD_EXECUTABLE(Rhealth
     src/HealthApp.cpp
 )
 
+ADD_EXECUTABLE(ManualTest
+    src/test_main.cpp
+    src/WeightTracker.cpp
+    src/ExercisePlan.cpp
+    src/HealthApp.cpp
+)
+
 ADD_EXECUTABLE(test
     tests/unit_test.cpp
     src/WeightTracker.cpp
@@ -39,6 +46,10 @@ ADD_EXECUTABLE(test
 TARGET_LINK_LIBRARIES(Rhealth PRIVATE nlohmann_json::nlohmann_json)
 TARGET_LINK_LIBRARIES(Rhealth PRIVATE unofficial::curlpp::curlpp)
 TARGET_LINK_LIBRARIES(Rhealth PRIVATE CURL::libcurl)
+
+TARGET_LINK_LIBRARIES(ManualTest PRIVATE nlohmann_json::nlohmann_json)
+TARGET_LINK_LIBRARIES(ManualTest PRIVATE unofficial::curlpp::curlpp)
+TARGET_LINK_LIBRARIES(ManualTest PRIVATE CURL::libcurl)
 
 TARGET_LINK_LIBRARIES(test PRIVATE nlohmann_json::nlohmann_json)
 TARGET_LINK_LIBRARIES(test PRIVATE unofficial::curlpp::curlpp)
