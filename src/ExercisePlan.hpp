@@ -49,9 +49,7 @@ public:
 		API_header.push_back("Authorization: Token " + API_token);
 		API_header.push_back("Accept: application/json; indent=4");
 
-		initCardioWorkouts();
-
-
+		// initCardioWorkouts();
 	}
 
 	ExercisePlan(int age, std::string sex, double weight, double height) {}

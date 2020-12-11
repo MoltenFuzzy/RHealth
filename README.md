@@ -68,7 +68,16 @@
  > * Complete the sections below (i.e. Screenshots, Installation/Usage, Testing)
  > * Plan one more sprint (that you will not necessarily complete before the end of the quarter). Your In-progress and In-testing columns should be empty (you are not doing more work currently) but your TODO column should have a full sprint plan in it as you have done before. This should include any known bugs (there should be some) or new features you would like to add. These should appear as issues/cards on your Kanban board. 
  ## Screenshots
- > Screenshots of the input/output after running your application
+ > Input: Our program takes it the user's age, sex, height, and weight. The program also makes sure that the user inputed the correct information and then relies on their input of a number range to determine what the user would like to view and when they would like to exit.
+
+ ![Input](https://user-images.githubusercontent.com/72319072/101962868-11027500-3bc2-11eb-862f-16ba94471d22.png)
+
+ > Output: Besides the introduction to RHealth, our program does not just spit out all the information to the user, but allows for the user to interact with the system. The user can decide what information they would like to view and when they would like to exit. The ouput of the Weight Tracker class contains their BMI results along with advice on how to continue, such as to lose weight, gain, or maintain. The Exercise class allows the user to search different types of workouts and add them to their plan.The Meal Plan class outputs specific meals for the user based on their BMI results.
+
+ ![OutpuOne](https://user-images.githubusercontent.com/72319072/101962916-2bd4e980-3bc2-11eb-949c-8fb25457b86c.png)
+
+ ![OutputTwo](https://user-images.githubusercontent.com/72319072/101962934-37c0ab80-3bc2-11eb-948b-0ce94d6c1f84.png)
+
  ## Installation/Usage
  > For this project we used VCPKG to install the C++ libraries. To build this project you will need to first run the vcpkg executable from the lib directory. 
  ## How to build
@@ -109,5 +118,6 @@
  > As for unit testing, we used the google test framework to test our various functions. 
  > We tested our composite pattern structure to ensure components were added and removed correctly.
  > For the API Handler, it was tested using a different API to ensure compatiability with other APIs. The only complication that we came across was not being able to test it using mock calls. Therefore if the API were to be down, we would have no way to test if the exception we programmed would be called. 
- 
+ > We also included a few unit tests that tests the functionality of our CalcBMI function along with implementation in our Exercise and Meal subclasses.
+ > Besides using google test we also implemented some input validation, to make sure that the user is entering the correct data types, so our program does not crash.
 

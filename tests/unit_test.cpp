@@ -2,6 +2,7 @@
 #define PROJECT_TESTS_HPP
 
 #include "gtest/gtest.h"
+
 #include "ExercisePlanTest.cpp"
 #include "MealPlanTest.cpp"
 #include "WeightTrackerTest.cpp"

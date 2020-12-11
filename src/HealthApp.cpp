@@ -112,12 +112,50 @@ void HealthApp::Run()
 		{
 		case 1:
 		{
-			//WeightTrackerInterface();
+			HealthPlan *WeightTracker_Plan = CreateWeightTracker(age, sex, weight, height);
+			bool back_flag = true;
+			while (back_flag)
+			{
+				int user_input = 0;
+				std::cout << "Select one of the Options" << std::endl;
+				std::cout << "1. Display Weight Advice" << std::endl;
+				std::cout << "2. Display Weight Status" << std::endl;
+				std::cout << "3. Back" << std::endl;
+
+				std::cout << "Option: ";
+				std::cin >> user_input;
+				std::cout << "\n";
+
+				switch (user_input)
+				{
+				case 1:
+				{
+					std::cout << "Displaying your Weight Status...\n"
+							  << std::endl;
+					static_cast<WeightTracker *>(WeightTracker_Plan)->DisplayWeightStatus();
+					std::cout << "\n";
+				}
+				break;
+				case 2:
+				{
+					std::cout << "Displaying your Weight Advice...\n"
+							  << std::endl;
+					static_cast<WeightTracker *>(WeightTracker_Plan)->GiveHealthAdvice();
+					std::cout << "\n";
+				}
+				break;
+				case 3:
+				{
+					back_flag = false;
+					break;
+				}
+				}
+			}
 		}
 		break;
 		case 2:
 		{
-			//MealPlanInterface();
+			MealPlanInterface(age, sex, weight, height);
 		}
 		break;
 		case 3:
@@ -137,12 +175,8 @@ void HealthApp::Run()
 					std::cout << "2. View current exercise plan" << std::endl;
 					// Get the details about an specific workout
 					std::cout << "3. Get more info about an exercise" << std::endl;
-					// Load an exercise plan if there was one saved
-					std::cout << "4. Load exercise plan" << std::endl;
-					// Save the exercise plan, not sure if we are caching user data
-					std::cout << "5. Save exercise plan" << std::endl;
-					// not sure how to go back lol
-					std::cout << "6. Back" << std::endl;
+
+					std::cout << "4. Back" << std::endl;
 
 					std::cout << "Option: ";
 					std::cin >> input;
@@ -199,10 +233,6 @@ void HealthApp::Run()
 					}
 					break;
 					case 4:
-						break;
-					case 5:
-						break;
-					case 6:
 						// Leave loop
 						go_back_flag = false;
 						break;
@@ -227,12 +257,39 @@ HealthPlan *HealthApp::CreateWeightTracker(int age, std::string sex, double weig
 	return tracker;
 }
 
+HealthPlan *HealthApp::CreateMealPlan(int age, std::string sex, double weight, double height)
+{
+	MealPlan *WeeklyMealPlan = new Meals(age, sex, weight, height);
+	WeeklyMealPlan->setAPIFunction(new APICaller());
+
+	int index{0};
+	for (const auto &day : DaysOfWeek)
+	{
+		Meals *DailyMeals = new Meals();
+		WeeklyMealPlan->setAPIurl(WeeklyMealPlan->getMealUrl());
+		WeeklyMealPlan->SetMealData(WeeklyMealPlan->CallAPI());
+
+		json temp_meal_data;
+		for (int i = 0; i < 3; index++, i++)
+		{
+			// if (index > WeeklyMealPlan->GetMealData().size())
+			// 	break;
+			temp_meal_data.push_back(WeeklyMealPlan->GetMealData()[index]);
+		}
+		DailyMeals->ExtractMealsFromJson(temp_meal_data);
+
+		WeeklyMealPlan->Add(day, DailyMeals);
+	}
+
+	return WeeklyMealPlan;
+}
+
 HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weight, double height)
 {
 	// might be more organized if i moved this to a function inside ExercisePlan
 
 	// TODO: TURN POINTERS INTO SMART POINTERS
-	ExercisePlan *WeeklyExercisePlan = new Routine();
+	ExercisePlan *WeeklyExercisePlan = new Routine(age, sex, weight, height);
 
 	double BMI = WeeklyExercisePlan->CalcBMI(weight, height);
 
@@ -322,4 +379,85 @@ HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 	}
 
 	return WeeklyExercisePlan;
+}
+
+void HealthApp::MealPlanInterface(int age, std::string sex, double weight, double height)
+{
+	bool go_back_flag = true;
+	HealthPlan *Meal_Plan = nullptr;
+
+	while (go_back_flag)
+	{
+		int input = 0;
+		std::cout << "Select One of The Options" << std::endl;
+		// Call create exercise plan function
+		std::cout << "1. Create new meal plan" << std::endl;
+		// Print the current exercise plan
+		std::cout << "2. View current meal plan" << std::endl;
+		// Get the details about an specific workout
+		std::cout << "3. Get website of meal" << std::endl;
+
+		std::cout << "4. Back" << std::endl;
+
+		std::cout << "Option: ";
+		std::cin >> input;
+		std::cout << "\n";
+
+		switch (input)
+		{
+		case 1:
+		{
+			std::cout << "Creating New Meal Plan...\n";
+			Meal_Plan = CreateMealPlan(age, sex, weight, height);
+			// TODO: CHECK IF API CALL FAILS
+			// IF IT FAILS RETURN AN ERROR TO USER
+			std::cout << "Exercise Plan Successfully Created!\n";
+		}
+		break;
+		case 2:
+		{
+			if (Meal_Plan == nullptr)
+			{
+				std::cout << "Meal Plan Does Not Exist\n";
+			}
+			else
+			{
+				Meal_Plan->Print(std::cout);
+			}
+		}
+		break;
+		// case 3:
+		// {
+		// 	if (Meal_Plan != nullptr)
+		// 	{
+		// 		std::string input_workout;
+		// 		std::cout << "Enter a meal to get the website: ";
+		// 		std::cin.ignore();
+		// 		std::getline(std::cin, input_workout);
+		// 		// Meal_Plan *m = dynamic_cast<MealPlan *>(Meal_Plan)->Search(input_workout);
+
+		// 		if (m != nullptr)
+		// 		{
+		// 			std::cout << "Name: " << m->GetName() << std::endl;
+		// 			std::cout << "Description:\n"
+		// 					  << m->GetDesc() << std::endl;
+		// 		}
+		// 		else
+		// 		{
+		// 			std::cout << "Meal not found!" << std::endl;
+		// 		}
+		// 	}
+		// 	else
+		// 	{
+		// 		std::cout << "Meal Plan Does Not Exist\n";
+		// 	}
+		// }
+		// break;
+		case 4:
+			// Leave loop
+			go_back_flag = false;
+			break;
+		}
+		std::cout << std::endl;
+	}
 }
