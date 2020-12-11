@@ -5,7 +5,6 @@
 #include "ExercisePlanTest.cpp"
 #include "APIHandlerTests.cpp"
 #include "WeightTrackerTest.cpp"
-#include "APIHandlerTests.cpp"
 
 int main(int argc, char **argv)
 {
