@@ -15,6 +15,7 @@
 using json = nlohmann::json;
 using namespace curlpp::options;
 
+
 class MealPlan:virtual public HealthPlan{
 	protected:
 		json MealData;
