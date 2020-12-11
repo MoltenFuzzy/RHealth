@@ -49,4 +49,5 @@ class Meals:public MealPlan{
 		}
 };
 
+
 #endif // MEALS_HPP
