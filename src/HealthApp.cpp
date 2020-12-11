@@ -289,7 +289,7 @@ HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 	WeeklyExercisePlan->InitCategories();
 	json Categories = WeeklyExercisePlan->getCategories();
 
-	auto CreatePlan = [](json Categories, std::vector<std::string> DaysOfWeek, ExercisePlan *WeeklyExercisePlan) {
+	auto CreatePlan = [](double BMI, json Categories, std::vector<std::string> DaysOfWeek, ExercisePlan *WeeklyExercisePlan) {
 		// Creates exercise plan
 		int index{0};
 		for (const auto &day : DaysOfWeek)
@@ -329,39 +329,61 @@ HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 			WeeklyExercisePlan->SetExerciseData(WeeklyExercisePlan->CallAPI());
 			DailyRoutine->AddWorkoutsFromJSON(WeeklyExercisePlan->GetExerciseData());
 
-			WeeklyExercisePlan->Add(day, DailyRoutine);
+			// adding cardio
+			// underweight
+			// More weights, less cardio
+			if (WeeklyExercisePlan->IsUnderWeight(BMI))
+			{
+				json temp = WeeklyExercisePlan->GetCardioJSON();
+				for (int i = 0; i < temp.size() - 5; i++)
+				{
+					json temp2;
+					temp2.push_back(temp[i]);
+					DailyRoutine->AddWorkoutsFromJSON(temp2);
+				}
+			}
+			// normal
+			// normal weights, normal cardio
+			else if (WeeklyExercisePlan->IsNormalWeight(BMI))
+			{
+				json temp = WeeklyExercisePlan->GetCardioJSON();
+				for (int i = 0; i < temp.size() - 3; i++)
+				{
+					json temp2;
+					temp2.push_back(temp[i]);
+					DailyRoutine->AddWorkoutsFromJSON(temp2);
+				}
+			}
+			// overweight
+			// normal weights, more cardio
+			else if (WeeklyExercisePlan->IsOverWeight(BMI))
+			{
+				json temp = WeeklyExercisePlan->GetCardioJSON();
+				for (int i = 0; i < temp.size() - 2; i++)
+				{
+					json temp2;
+					temp2.push_back(temp[i]);
+					DailyRoutine->AddWorkoutsFromJSON(temp2);
+				}
+			}
+			// obese
+			// less weights, more cardio
+			else
+			{
+				json temp = WeeklyExercisePlan->GetCardioJSON();
+				for (int i = 0; i < temp.size(); i++)
+				{
+					json temp2;
+					temp2.push_back(temp[i]);
+					DailyRoutine->AddWorkoutsFromJSON(temp2);
+				}
+			}
 
+			WeeklyExercisePlan->Add(day, DailyRoutine);
 			// std::std::cout << "(" << *firstCategory << "," << *secondCategory << ")" << std::std::endl;
 		}
 	};
 
-	// TODO: ADD STRING PARAMETER TO CREATE PLAN TO INDENTIFY WEIGHT STATUS TO CREATE THE CORRECT PLAN
-	// Weight Status
-
-	// underweight
-	// More weights, less cardio
-	if (WeeklyExercisePlan->IsUnderWeight(BMI))
-	{
-		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
-	}
-	// normal
-	// normal weights, normal cardio
-	else if (WeeklyExercisePlan->IsNormalWeight(BMI))
-	{
-		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
-	}
-	// overweight
-	// normal weights, more cardio
-	else if (WeeklyExercisePlan->IsOverWeight(BMI))
-	{
-		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
-	}
-	// obese
-	// less weights, more cardio
-	else
-	{
-		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
-	}
-
+	CreatePlan(BMI, Categories, DaysOfWeek, WeeklyExercisePlan);
 	return WeeklyExercisePlan;
 }

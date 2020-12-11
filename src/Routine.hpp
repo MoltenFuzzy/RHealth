@@ -30,6 +30,8 @@ public:
 		}
 	}
 
+	// BUG: if json is not an array it will break
+	// ONLY ACCEPTS JSONs WITH AN ARRAY INSIDE, NOT SINGLE JSON OBJECTS
 	void AddWorkoutsFromJSON(const json &workouts)
 	{
 		// ExerciseData = workouts;
