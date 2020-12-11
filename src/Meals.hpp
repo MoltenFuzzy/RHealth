@@ -7,57 +7,46 @@
 class Meals:public MealPlan{
 	
 	private:
-		typedef std:: vector<std::pair<std::string, MealPlan *>> PairVector;
+		typedef std::vector<std::pair<std::string, MealPlan *>> PairVector;
 		PairVector meals;		
+	
 	public:
-		MealPlan(int age, std::string sex, double weight, double height){
-			double BMI = CalcBMI(this->weight, this->height);
+		Meals(int age, std::string sex, double weight, double height):HealthPlan(age,sex,weight,height){}
+		
+		Meals(PairVector m):meals{m};
 
-        		if(IsUnderWeight(this->BMI)) {
-                		//UnderWeightMealPlan();
-                		bool under=true;
-        		}
-       			 else if(IsNormalWeight(this->BMI)) {
-                		//NormalWeightMealPlan();
-        			bool normal=true;
-			}
-        		else if(IsOverWeight(this->BMI)) {
-                		//OverWeightMealPlan();
-        			bool over=true;
-			}
-        		else if (IsObese(this->BMI)) {
-                		//ObeseWeightMealPlan();
-        			bool obese=true;
-			}
+		Meals(){}
+
+		void Add(std::string MealName, MealPlan * MealLink){
+			meals.push_back(std::make_pair(MealName,MealLink));
 		}
 
-		void MealPlan(){
-			if(under){
-				std::string RecipeName="Roast Beef";
-				MealPlan * Recipe="200g Roast Beef, 200g Mashed Potatoes, 80g Peas and Carrots\n\n ";
-				Add(RecipeName, Recipe);
+		void Remove(std::string MealName, MealPlan * MealLink){
+			PairVector::iterator itr=std::find(meals.begin(), meals.end(), std::make_pair(MealName,MealLink));
+			if(itr!=meals.end(){
+				meals.erase(itr);
 			}
-			else if(normal){
-				
-			}
-			else if(over){
-				
-			}
-			else if(obese){
-				
-			}
+
 		}
 
-		void Add(std::string RecipeName, MealPlan * Recipe){
-			meals.push_back(std::make_pair(RecipeName,Recipe));
+		void ExtractMealsFromJson(const json &meals){
+			for(auto meal:meals){
+				std::string mealName=meal["title"];
+				std::string mealLink=meal["sourceUrl"];
+			}
+			Add(mealName, new Meal(mealName,mealLink));
 		}
 
-		void Remove(std::string RecipeName, MealPlan * Recipe){
-			PairVector::iterator itr=std::find(meals.begin(), meals.end(), std::make_pair(RecipeName,Recipe));
-		}
+		//MealPlan GetChild(){}
 
-		MealPlan GetChild(){}
+		void PrintMeal(std::ostream &outs){
+			for(auto meal:meals){
+				if(std::find(DaysOfWeek.begin(),DaysOfWeek.end(),meal.first!=DaysOfWeek.end()){
+					outs<<meal.first<<std::endl;
+				}
+			meal.second->PrintMeal(outs);
+			}
+		}
 };
 
 #endif // MEALS_HPP
-
