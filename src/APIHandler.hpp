@@ -12,12 +12,12 @@ using json = nlohmann::json;
 
 class HealthPlan;
 
-class APIHandler { 
-	private:
-	protected:
-	public: 
-		virtual json CallAPI(HealthPlan* plan) = 0; 
+class APIHandler
+{
+private:
+protected:
+public:
+	virtual json CallAPI(HealthPlan *plan) = 0;
 };
-
 
 #endif // APIHANDLER

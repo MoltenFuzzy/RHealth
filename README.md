@@ -22,7 +22,8 @@
  >   * This project is important because its purpose is to help people become healthy. By calculating the Body Mass Index (BMI) of the user, the program can tailor a meal plan and exercise routine for them. Instead of having a doctor simply say to a patient “eat healthier and exercise more”, now the patient can see exactly what foods to include in their diet and how much exercise to do in order to take care of their health.
  > * What languages/tools/technologies do you plan to use? (This list may change over the course of the project)
  >   * C++ - a cross-platform language that can be used to create high-performance applications.
- >   * REST, RESTful - API libraries that work with C++ and are considering since we would like our project to use an application programming interface (API) 
+ >   * Libcurl with curlpp as a wrapper - Since our project relies on data that we do not have, we had to option to either scrap data or use an API. We chose the latter as it seemed more viable. With the use of curlpp, the complexity of sending HTTP requests to API endpoints in C++ were greatly reduced.
+ >   * nlohmann_json - Introduces JSON objects to C++, which simplified parsing JSON payloads and integrating them into our project. 
  > * What will be the input/output of your project?
  >   * Our application focuses on the health and wellness of the user. It begins by asking the user for general information such as age, sex, weight, and height. These numbers are then used by the application to calculate Body Mass Index (BMI), which is a measurement of body fat based on height and weight. The user's BMI level is used to provide them with a meal plan and exercise routine tailored to this information. The purpose of the meal plan portion of the project is to provide the user with a list of foods and/or recipes they can consider adding to their diet in order to help balance or maintain their weight/BMI levels. The exercise portion of the project provides the user with exercise routines that help them balance or maintain their weight/BMI levels. Finally, the weight tracking feature of our application allows the user to maintian a record of their changes and progress in weight/BMI levels. As the user's weight/BMI levels change so do the recommended meal plans and exercise routines.
  > * What are the three design patterns you will be using. For each design pattern you must:
@@ -69,39 +70,44 @@
  ## Screenshots
  > Screenshots of the input/output after running your application
  ## Installation/Usage
- > Instructions on installing and running your application
- ## Testing
- > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
+ > For this project we used VCPKG to install the C++ libraries. To build this project you will need to first run the vcpkg executable from the lib directory. 
+ ## How to build
+ > We are using vcpkg to install libraries for C++
+
+ > Installation differs for each OS
+
+ > The dependencies include:
+
+ * gtest
+ * libcurl
+ * curlpp
+ * nlohmann_json
+
+ ## Refer to [vcpkg](https://github.com/Microsoft/vcpkg/) for more information
+
+ ## Requires
+ * Windows 7 or newer
+ * Git
+ * Visual Studio 2015 Update 3 or greater with the English language pack
+ > Side Note: You can just install the build tools instead of the entire IDE.
+
+ ### Install via vcpkg (WINDOWS64)
+
+ ```.\lib\vcpkg\bootstrap-vcpkg.bat```
+
+ ```.\lib\vcpkg\vcpkg integrate install```
+
+ ```.\lib\vcpkg\vcpkg install gtest --triplet=x64-windows```
+
+ ```.\lib\vcpkg\vcpkg install curl --triplet=x64-windows```
+
+ ```.\lib\vcpkg\vcpkg install curlpp --triplet=x64-windows```
+
+ > nlohmann_json does not need to be installed as it is a submodule
  
-## How to build
-> We are using vcpkg to install libraries for C++
+ ## Testing
+ > As for unit testing, we used the google test framework to test our various functions. 
+ > We tested our composite pattern structure to ensure components were added and removed correctly.
+ > For the API Handler, it was tested using a different API to ensure compatiability with other APIs. The only complication that we came across was not being able to test it using mock calls. Therefore if the API were to be down, we would have no way to test if the exception we programmed would be called. 
+ 
 
-> Installation differs for each OS
-
-> The dependencies include:
-
-* gtest
-* curl
-* curlpp
-* nlohmann_json
-
-## Refer to [vcpkg](https://github.com/Microsoft/vcpkg/) for more information
-
-## Requires
-* Windows 7 or newer
-* Git
-* Visual Studio 2015 Update 3 or greater with the English language pack
-
-### Install via vcpkg (WINDOWS64)
-
-```.\lib\vcpkg\bootstrap-vcpkg.bat```
-
-```.\lib\vcpkg\vcpkg integrate install```
-
-```.\lib\vcpkg\vcpkg install gtest --triplet=x64-windows```
-
-```.\lib\vcpkg\vcpkg install curl --triplet=x64-windows```
-
-```.\lib\vcpkg\vcpkg install curlpp --triplet=x64-windows```
-
-> nlohmann_json does not need to be installed as it is a submodule

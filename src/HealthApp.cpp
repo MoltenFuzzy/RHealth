@@ -37,36 +37,41 @@ void HealthApp::Run()
 	std::cout << "Enter your age: ";
 	std::cin >> age;
 
-	while (age < 0 || isdigit(age))
+	//low <= x && x <= high
+	while (!(0 < age && age < 100))
 	{
-		std::cout << "The age you entered is invalid, please enter your age again" << endl;
+		std::cout << "The age you entered is invalid, please enter your age again" << std::endl;
+		std::cout << "Enter your age: ";
 		std::cin >> age;
 	}
 
 	std::cout << "Enter your sex (M/F): ";
 	std::cin >> sex;
 
-	while (!(sex != "M" || sex != "F"))
+	while (!(sex == "M" || sex == "F" || sex == "m" || sex == "f"))
 	{
-		std::cout << "The sex you entered is invalid, please enter your sex again" << endl;
+		std::cout << "The sex you entered is invalid, please enter your sex again" << std::endl;
+		std::cout << "Enter your sex (M/F): ";
 		std::cin >> sex;
 	}
 
 	std::cout << "Enter your height (ex. 5'7): ";
 	std::cin >> feet >> dummy >> inches;
 
-	while (feet < 0 || isdigit(feet) || dummy != '\'' || inches < 0 || isdigit(inches))
+	while (feet <= 0 || dummy != '\'' || inches <= 0)
 	{
-		std::cout << "The height you entered is invalid, please enter your height again" << endl;
+		std::cout << "The height you entered is invalid, please enter your height again" << std::endl;
+		std::cout << "Enter your height (ex. 5'7): ";
 		std::cin >> feet >> dummy >> inches;
 	}
 
 	std::cout << "Enter your weight (ex. 120.5): ";
 	std::cin >> weight;
 
-	while (weight < 0.0)
+	while (weight <= 0.0)
 	{
-		std::cout << "The weight you entered is invalid, please enter your weight again" << endl;
+		std::cout << "The weight you entered is invalid, please enter your weight again" << std::endl;
+		std::cout << "Enter your weight (ex. 120.5): ";
 		std::cin >> weight;
 	}
 
@@ -112,7 +117,42 @@ void HealthApp::Run()
 		{
 		case 1:
 		{
-			//WeightTrackerInterface();
+			HealthPlan *WeightTracker_Plan = nullptr;
+			bool back_flag = true;
+			while (back_flag)
+			{
+				int user_input = 0;
+				std::cout << "Select one of the Options" << std::endl;
+				std::cout << "1. Display Weight Advice" << std::endl;
+				std::cout << "2. Display Weight Status" << std::endl;
+				std::cout << "3. Back" << std::endl;
+				
+				std::cin >> user_input;
+				
+				switch (user_input)
+				{
+				case 1:
+				{
+					std::cout << "Displaying your Weight Status..." << std::endl;
+					WeightTracker_Plan = CreateWeightTracker(age, sex, weight, height);
+					WeightTracker_Plan->Print(std::cout);		
+
+				{
+				case 2:
+				{
+					std::cout << "Displaying your Weight Advice..." << std::endl;
+					HealthPlan *WeightTracker_Status = = new WeightTracker(age, sex, weight, height);
+					WeightTracker_Status->GiveHealthAdvice();
+					WeightTracker_Status->Print(std::cout);
+			
+				{
+				case 3:
+				{
+					user_input = false;
+					break;
+				{
+			}
+					
 		}
 		break;
 		case 2:
@@ -223,6 +263,8 @@ void HealthApp::Run()
 HealthPlan *HealthApp::CreateWeightTracker(int age, std::string sex, double weight, double height)
 {
 	WeightTracker *tracker = new WeightTracker(age, sex, weight, height);
+	
+	tracker->DisplayWeightStatus();
 
 	return tracker;
 }
