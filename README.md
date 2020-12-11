@@ -70,8 +70,13 @@
  ## Screenshots
  > Input: Our program takes it the user's age, sex, height, and weight. The program also makes sure that the user inputed the correct information and then relies on their input of a number range to determine what the user would like to view and when they would like to exit.
 
+ ![Input](https://user-images.githubusercontent.com/72319072/101962868-11027500-3bc2-11eb-862f-16ba94471d22.png)
 
  > Output: Besides the introduction to RHealth, our program does not just spit out all the information to the user, but allows for the user to interact with the system. The user can decide what information they would like to view and when they would like to exit. The ouput of the Weight Tracker class contains their BMI results along with advice on how to continue, such as to lose weight, gain, or maintain. The Exercise class allows the user to search different types of workouts and add them to their plan.The Meal Plan class outputs specific meals for the user based on their BMI results.
+
+ ![OutpuOne](https://user-images.githubusercontent.com/72319072/101962916-2bd4e980-3bc2-11eb-949c-8fb25457b86c.png)
+
+ ![OutputTwo](https://user-images.githubusercontent.com/72319072/101962934-37c0ab80-3bc2-11eb-948b-0ce94d6c1f84.png)
 
  ## Installation/Usage
  > For this project we used VCPKG to install the C++ libraries. To build this project you will need to first run the vcpkg executable from the lib directory. 
