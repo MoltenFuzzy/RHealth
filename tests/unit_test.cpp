@@ -3,8 +3,8 @@
 
 #include "gtest/gtest.h"
 #include "ExercisePlanTest.cpp"
-#include "WeightTrackerTest.cpp"
 #include "APIHandlerTests.cpp"
+#include "WeightTrackerTest.cpp"
 
 int main(int argc, char **argv)
 {

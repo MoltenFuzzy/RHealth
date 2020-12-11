@@ -4,6 +4,7 @@
 #include "ExercisePlan.hpp"
 #include "Routine.hpp"
 #include "MealPlan.hpp"
+#include "Meals.hpp"
 #include "WeightTracker.hpp"
 #include "APICaller.hpp"
 
@@ -12,6 +13,7 @@ class HealthApp
 private:
 	std::vector<std::string> DaysOfWeek = {"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"};
 	void PrintInterface();
+	void MealPlanInterface(int age, std::string sex, double weight, double height);
 
 public:
 	HealthApp() {}
