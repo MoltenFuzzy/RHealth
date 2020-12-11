@@ -50,8 +50,11 @@ public:
 		API_header.push_back("Accept: application/json; indent=4");
 	}
 
-	// TODO: make algorithm based off BMI to create and Exercise plan for each weight category ie normal, overweight, etc...
 	ExercisePlan(int age, std::string sex, double weight, double height) {}
+
+	~ExercisePlan()
+	{
+	}
 
 	virtual size_t Size() { return 0; }
 	virtual void Add(std::string key, ExercisePlan *value) {}
