@@ -3,6 +3,7 @@
 
 #include "gtest/gtest.h"
 #include "ExercisePlanTest.cpp"
+#include "MealPlanTest.cpp"
 #include "APIHandlerTests.cpp"
 
 int main(int argc, char **argv)
