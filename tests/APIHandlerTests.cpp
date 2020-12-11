@@ -33,7 +33,6 @@ TEST(APIHandlerTest, CallAPITest)
 	}
 }
 
-<<<<<<< HEAD
 TEST(APIHandlerTest, CallExerciseAPITest)
 {
 	HealthPlan *test = new HealthPlan();
@@ -65,8 +64,6 @@ TEST(APIHandlerTest, CallInvalidAPITest)
 	EXPECT_EQ(test->CallAPI(), json());
 }
 
-=======
->>>>>>> master
 // here we are testing for an exception thrown
 TEST(APIHandlerTest, APICallerIsNull)
 {
