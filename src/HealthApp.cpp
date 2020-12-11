@@ -88,8 +88,41 @@ void HealthApp::Run()
 		case 1:
 		{
 			HealthPlan *WeightTracker_Plan = nullptr;
-			WeightTracker_Plan = CreateWeightTracker(age, sex, weight, height);
-			WeightTracker_Plan->Print(std::cout);
+			bool back_flag = true;
+			while (back_flag)
+			{
+				int user_input = 0;
+				std::cout << "Select one of the Options" << std::endl;
+				std::cout << "1. Display Weight Advice" << std::endl;
+				std::cout << "2. Display Weight Status" << std::endl;
+				std::cout << "3. Back" << std::endl;
+				
+				std::cin >> user_input;
+				
+				switch (user_input)
+				{
+				case 1:
+				{
+					std::cout << "Displaying your Weight Status..." << std::endl;
+					WeightTracker_Plan = CreateWeightTracker(age, sex, weight, height);
+					WeightTracker_Plan->Print(std::cout);		
+
+				{
+				case 2:
+				{
+					std::cout << "Displaying your Weight Advice..." << std::endl;
+					HealthPlan *WeightTracker_Status = = new WeightTracker(age, sex, weight, height);
+					WeightTracker_Status->GiveHealthAdvice();
+					WeightTracker_Status->Print(std::cout);
+			
+				{
+				case 3:
+				{
+					user_input = false;
+					break;
+				{
+			}
+					
 		}
 		break;
 		case 2:
@@ -203,7 +236,6 @@ HealthPlan *HealthApp::CreateWeightTracker(int age, std::string sex, double weig
 	WeightTracker *tracker = new WeightTracker(age, sex, weight, height);
 	
 	tracker->DisplayWeightStatus();
-	tracker->GiveHealthAdvice();
 
 	return tracker;
 }
