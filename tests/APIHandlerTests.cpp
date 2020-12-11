@@ -6,7 +6,7 @@
 #include "../src/Workout.hpp"
 #include "../src/Routine.hpp"
 
-TEST(APIHandlerTest, CallFoodAPITest)
+TEST(APIHandlerTest, CallAPITest)
 {
 	HealthPlan *test = new HealthPlan();
 	test->setAPIFunction(new APICaller());
@@ -31,36 +31,6 @@ TEST(APIHandlerTest, CallFoodAPITest)
 	{
 		EXPECT_EQ(test_food_data[i]["title"], expected_data[i]["title"]);
 	}
-}
-
-TEST(APIHandlerTest, CallExerciseAPITest)
-{
-	HealthPlan *test = new HealthPlan();
-	test->setAPIFunction(new APICaller());
-	test->setAPIurl("https://wger.de/api/v2/exercisecategory/");
-	test->AddToAPIheader("Authorization: Token 4bcc206865aff5431894a6bd1fd5efd69134013d");
-	test->AddToAPIheader("Accept: application/json; indent=4");
-	json test_food_data = (test->CallAPI())["results"];
-
-	json expected_data;
-	expected_data[0]["id"] = 10;
-	expected_data[1]["id"] = 8;
-
-	for (int i = 0; i < 2; i++)
-	{
-		EXPECT_EQ(test_food_data[i]["id"], expected_data[i]["id"]);
-	}
-}
-
-TEST(APIHandlerTest, CallInvalidAPITest)
-{
-	HealthPlan *test = new HealthPlan();
-	test->setAPIFunction(new APICaller());
-	test->setAPIurl("");
-	test->AddToAPIheader("");
-	test->AddToAPIheader("");
-	// expect an empty json
-	EXPECT_EQ(test->CallAPI(), json());
 }
 
 // here we are testing for an exception thrown

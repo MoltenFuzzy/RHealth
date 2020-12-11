@@ -30,8 +30,6 @@ public:
 		}
 	}
 
-	// BUG: if json is not an array it will break
-	// ONLY ACCEPTS JSONs WITH AN ARRAY INSIDE, NOT SINGLE JSON OBJECTS
 	void AddWorkoutsFromJSON(const json &workouts)
 	{
 		// ExerciseData = workouts;
@@ -92,12 +90,6 @@ public:
 		if (it != routines.end())
 		{
 			routines.erase(it);
-			// PairVector daily_routines = static_cast<Routine *>(value)->GetRoutines();
-			// for (auto &i : daily_routines)
-			// {
-			// 	delete i.second;
-			// }
-			// delete value;
 		}
 	}
 

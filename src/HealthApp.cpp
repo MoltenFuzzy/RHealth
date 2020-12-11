@@ -37,41 +37,36 @@ void HealthApp::Run()
 	std::cout << "Enter your age: ";
 	std::cin >> age;
 
-	//low <= x && x <= high
-	while (!(0 < age && age < 100))
+	while (age < 0 || isdigit(age))
 	{
-		std::cout << "The age you entered is invalid, please enter your age again" << std::endl;
-		std::cout << "Enter your age: ";
+		std::cout << "The age you entered is invalid, please enter your age again" << endl;
 		std::cin >> age;
 	}
 
 	std::cout << "Enter your sex (M/F): ";
 	std::cin >> sex;
 
-	while (!(sex == "M" || sex == "F" || sex == "m" || sex == "f"))
+	while (!(sex != "M" || sex != "F"))
 	{
-		std::cout << "The sex you entered is invalid, please enter your sex again" << std::endl;
-		std::cout << "Enter your sex (M/F): ";
+		std::cout << "The sex you entered is invalid, please enter your sex again" << endl;
 		std::cin >> sex;
 	}
 
 	std::cout << "Enter your height (ex. 5'7): ";
 	std::cin >> feet >> dummy >> inches;
 
-	while (feet <= 0 || dummy != '\'' || inches <= 0)
+	while (feet < 0 || isdigit(feet) || dummy != '\'' || inches < 0 || isdigit(inches))
 	{
-		std::cout << "The height you entered is invalid, please enter your height again" << std::endl;
-		std::cout << "Enter your height (ex. 5'7): ";
+		std::cout << "The height you entered is invalid, please enter your height again" << endl;
 		std::cin >> feet >> dummy >> inches;
 	}
 
 	std::cout << "Enter your weight (ex. 120.5): ";
 	std::cin >> weight;
 
-	while (weight <= 0.0)
+	while (weight < 0.0)
 	{
-		std::cout << "The weight you entered is invalid, please enter your weight again" << std::endl;
-		std::cout << "Enter your weight (ex. 120.5): ";
+		std::cout << "The weight you entered is invalid, please enter your weight again" << endl;
 		std::cin >> weight;
 	}
 
@@ -117,42 +112,7 @@ void HealthApp::Run()
 		{
 		case 1:
 		{
-			HealthPlan *WeightTracker_Plan = nullptr;
-			bool back_flag = true;
-			while (back_flag)
-			{
-				int user_input = 0;
-				std::cout << "Select one of the Options" << std::endl;
-				std::cout << "1. Display Weight Advice" << std::endl;
-				std::cout << "2. Display Weight Status" << std::endl;
-				std::cout << "3. Back" << std::endl;
-				
-				std::cin >> user_input;
-				
-				switch (user_input)
-				{
-				case 1:
-				{
-					std::cout << "Displaying your Weight Status..." << std::endl;
-					WeightTracker_Plan = CreateWeightTracker(age, sex, weight, height);
-					WeightTracker_Plan->Print(std::cout);		
-
-				{
-				case 2:
-				{
-					std::cout << "Displaying your Weight Advice..." << std::endl;
-					HealthPlan *WeightTracker_Status = = new WeightTracker(age, sex, weight, height);
-					WeightTracker_Status->GiveHealthAdvice();
-					WeightTracker_Status->Print(std::cout);
-			
-				{
-				case 3:
-				{
-					user_input = false;
-					break;
-				{
-			}
-					
+			//WeightTrackerInterface();
 		}
 		break;
 		case 2:
@@ -178,11 +138,11 @@ void HealthApp::Run()
 					// Get the details about an specific workout
 					std::cout << "3. Get more info about an exercise" << std::endl;
 					// Load an exercise plan if there was one saved
-					// std::cout << "4. Load exercise plan" << std::endl;
-					// // Save the exercise plan, not sure if we are caching user data
-					// std::cout << "5. Save exercise plan" << std::endl;
-					// // not sure how to go back lol
-					std::cout << "4. Back" << std::endl;
+					std::cout << "4. Load exercise plan" << std::endl;
+					// Save the exercise plan, not sure if we are caching user data
+					std::cout << "5. Save exercise plan" << std::endl;
+					// not sure how to go back lol
+					std::cout << "6. Back" << std::endl;
 
 					std::cout << "Option: ";
 					std::cin >> input;
@@ -239,6 +199,10 @@ void HealthApp::Run()
 					}
 					break;
 					case 4:
+						break;
+					case 5:
+						break;
+					case 6:
 						// Leave loop
 						go_back_flag = false;
 						break;
@@ -259,8 +223,6 @@ void HealthApp::Run()
 HealthPlan *HealthApp::CreateWeightTracker(int age, std::string sex, double weight, double height)
 {
 	WeightTracker *tracker = new WeightTracker(age, sex, weight, height);
-	
-	tracker->DisplayWeightStatus();
 
 	return tracker;
 }
@@ -270,7 +232,7 @@ HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 	// might be more organized if i moved this to a function inside ExercisePlan
 
 	// TODO: TURN POINTERS INTO SMART POINTERS
-	ExercisePlan *WeeklyExercisePlan = new Routine(age, sex, weight, height);
+	ExercisePlan *WeeklyExercisePlan = new Routine();
 
 	double BMI = WeeklyExercisePlan->CalcBMI(weight, height);
 
@@ -285,7 +247,7 @@ HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 	WeeklyExercisePlan->InitCategories();
 	json Categories = WeeklyExercisePlan->getCategories();
 
-	auto CreatePlan = [](double BMI, json Categories, std::vector<std::string> DaysOfWeek, ExercisePlan *WeeklyExercisePlan) {
+	auto CreatePlan = [](json Categories, std::vector<std::string> DaysOfWeek, ExercisePlan *WeeklyExercisePlan) {
 		// Creates exercise plan
 		int index{0};
 		for (const auto &day : DaysOfWeek)
@@ -325,61 +287,39 @@ HealthPlan *HealthApp::CreateExercisePlan(int age, std::string sex, double weigh
 			WeeklyExercisePlan->SetExerciseData(WeeklyExercisePlan->CallAPI());
 			DailyRoutine->AddWorkoutsFromJSON(WeeklyExercisePlan->GetExerciseData());
 
-			// adding cardio
-			// underweight
-			// More weights, less cardio
-			if (WeeklyExercisePlan->IsUnderWeight(BMI))
-			{
-				json temp = WeeklyExercisePlan->GetCardioJSON();
-				for (int i = 0; i < temp.size() - 5; i++)
-				{
-					json temp2;
-					temp2.push_back(temp[i]);
-					DailyRoutine->AddWorkoutsFromJSON(temp2);
-				}
-			}
-			// normal
-			// normal weights, normal cardio
-			else if (WeeklyExercisePlan->IsNormalWeight(BMI))
-			{
-				json temp = WeeklyExercisePlan->GetCardioJSON();
-				for (int i = 0; i < temp.size() - 3; i++)
-				{
-					json temp2;
-					temp2.push_back(temp[i]);
-					DailyRoutine->AddWorkoutsFromJSON(temp2);
-				}
-			}
-			// overweight
-			// normal weights, more cardio
-			else if (WeeklyExercisePlan->IsOverWeight(BMI))
-			{
-				json temp = WeeklyExercisePlan->GetCardioJSON();
-				for (int i = 0; i < temp.size() - 2; i++)
-				{
-					json temp2;
-					temp2.push_back(temp[i]);
-					DailyRoutine->AddWorkoutsFromJSON(temp2);
-				}
-			}
-			// obese
-			// less weights, more cardio
-			else
-			{
-				json temp = WeeklyExercisePlan->GetCardioJSON();
-				for (int i = 0; i < temp.size(); i++)
-				{
-					json temp2;
-					temp2.push_back(temp[i]);
-					DailyRoutine->AddWorkoutsFromJSON(temp2);
-				}
-			}
-
 			WeeklyExercisePlan->Add(day, DailyRoutine);
+
 			// std::std::cout << "(" << *firstCategory << "," << *secondCategory << ")" << std::std::endl;
 		}
 	};
 
-	CreatePlan(BMI, Categories, DaysOfWeek, WeeklyExercisePlan);
+	// TODO: ADD STRING PARAMETER TO CREATE PLAN TO INDENTIFY WEIGHT STATUS TO CREATE THE CORRECT PLAN
+	// Weight Status
+
+	// underweight
+	// More weights, less cardio
+	if (WeeklyExercisePlan->IsUnderWeight(BMI))
+	{
+		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
+	}
+	// normal
+	// normal weights, normal cardio
+	else if (WeeklyExercisePlan->IsNormalWeight(BMI))
+	{
+		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
+	}
+	// overweight
+	// normal weights, more cardio
+	else if (WeeklyExercisePlan->IsOverWeight(BMI))
+	{
+		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
+	}
+	// obese
+	// less weights, more cardio
+	else
+	{
+		CreatePlan(Categories, DaysOfWeek, WeeklyExercisePlan);
+	}
+
 	return WeeklyExercisePlan;
 }
