@@ -59,6 +59,7 @@ TEST(APIHandlerTest, CallInvalidAPITest)
 	test->setAPIurl("");
 	test->AddToAPIheader("");
 	test->AddToAPIheader("");
+
 	// expect an empty json
 	EXPECT_EQ(test->CallAPI(), json());
 }
