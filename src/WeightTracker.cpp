@@ -57,7 +57,7 @@ void WeightTracker::GiveHealthAdvice()
 	else if (IsObese(BMI))
 	{
 		cout << "Since you are currently obese, we recommend losing enough weight to reach a healthy BMI. " << endl;
-		cout << "Lsing enough weight o reach a healthy BMI might take awhile so we will break this plan up into two stages. Stage 1 will be to reach a BMI of 27 to be considered 'overweight'. Stage 2 will be to reach a healthy BMI of 23. " << endl;
+		cout << "Losing enough weight to reach a healthy BMI might take awhile so we will break this plan up into two stages. Stage 1 will be to reach a BMI of 27 to be considered 'overweight'. Stage 2 will be to reach a healthy BMI of 23. " << endl;
 		healthyWeight = (27 * pow(height, 2)) / 703;
 		weightDiff = weight - healthyWeight;
 		cout << "To reach an overweight BMI of 27, we recommend that you lose " << weightDiff << "pounds to reach a healthy weight of " << healthyWeight << "pounds. " << endl;

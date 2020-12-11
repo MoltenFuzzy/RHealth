@@ -3,22 +3,25 @@
 
 #include "MealPlan.hpp"
 
-class Meal:public MealPlan{
-	
-	private:
-		std::string MealName;
-		std::string MealLink;
-	
-	public:
-		Meal(std::string mn,std::string ml):MealName{mn},MealLink{ml}{}
-		
-		void PrintMeal(std::ostream &outs){
-			outs<<this->MealName;
-		}
+class Meal : public MealPlan
+{
 
-		std::string GetMealName(){return MealName;}
+private:
+	std::string MealName;
+	std::string MealLink;
 
-		std::string GetMealLink(){return MealLink;}
+public:
+	Meal() {}
+	Meal(std::string MealName, std::string MealLink) : MealName{MealName}, MealLink{MealName} {}
+
+	void Print(std::ostream &outs)
+	{
+		outs << this->MealName;
+	}
+
+	std::string GetMealName() { return MealName; }
+
+	std::string GetMealLink() { return MealLink; }
 };
 
 #endif // MEAL_HPP

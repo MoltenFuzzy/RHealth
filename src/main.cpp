@@ -23,6 +23,10 @@ int main()
 
 	// std::cout << test->GetDesc();
 
+	// HealthPlan *Meal_Plan = RHealth.CreateMealPlan(20, "Male", 180, 180);
+
+	// Meal_Plan->Print(std::cout);
+
 	RHealth.Run();
 
 	return 0;
