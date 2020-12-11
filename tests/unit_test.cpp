@@ -3,7 +3,6 @@
 
 #include "gtest/gtest.h"
 #include "ExercisePlanTest.cpp"
-#include "APIHandlerTests.cpp"
 #include "WeightTrackerTest.cpp"
 #include "APIHandlerTests.cpp"
 
