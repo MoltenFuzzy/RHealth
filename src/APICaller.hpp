@@ -20,6 +20,7 @@ public:
 
 		std::string API_token = plan->getAPItoken();
 		std::string API_url = plan->getAPIurl();
+		std::list<std::string> API_header = plan->getAPIheader();
 
 		try
 		{
@@ -29,10 +30,11 @@ public:
 			// Our request to be sent.
 			curlpp::Easy myRequest;
 
-			std::list<std::string> header;
-			header.push_back("Authorization: Token " + API_token);
-			header.push_back("Accept: application/json; indent=4");
-			myRequest.setOpt(curlpp::options::HttpHeader(header));
+			// std::list<std::string> header;
+			// header.push_back("Authorization: Token " + API_token);
+			// header.push_back("Accept: application/json; indent=4");
+			// myRequest.setOpt(curlpp::options::HttpHeader(header));
+			myRequest.setOpt(curlpp::options::HttpHeader(API_header));
 
 			// Set the URL.
 			myRequest.setOpt(curlpp::Options::Url(API_url));
