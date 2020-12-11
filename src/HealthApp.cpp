@@ -148,7 +148,7 @@ void HealthApp::Run()
 				{
 				case 3:
 				{
-					user_input = false;
+					back_flag = false;
 					break;
 				{
 			}
